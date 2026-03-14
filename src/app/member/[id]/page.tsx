@@ -33,7 +33,9 @@ const Page = async ({ params }: Props) => {
 
             <section className='section'>
                 <h2 className='text-2xl font-semibold'>Maksut</h2>
-                <p className='mt-2 text-sm text-[var(--color-text-muted)]'>Lisää tai poista jäsenmaksuja tarvittaessa.</p>
+                <p className='mt-2 text-sm text-[var(--color-text-muted)]'>
+                    Lisää tai poista jäsenmaksuja tarvittaessa.
+                </p>
                 <div className='mt-5'>
                     <FeeTable memberId={member.id} fees={member.fees} />
                 </div>

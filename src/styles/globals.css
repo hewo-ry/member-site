@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 
 @layer base {
-
     html,
     body {
         min-height: 100%;
@@ -10,8 +9,16 @@
     body {
         margin: 0;
         background:
-            radial-gradient(circle at top right, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 40%),
-            linear-gradient(180deg, var(--color-bg) 0%, color-mix(in srgb, var(--color-bg) 82%, var(--color-surface)) 100%);
+            radial-gradient(
+                circle at top right,
+                color-mix(in srgb, var(--color-primary) 10%, transparent),
+                transparent 40%
+            ),
+            linear-gradient(
+                180deg,
+                var(--color-bg) 0%,
+                color-mix(in srgb, var(--color-bg) 82%, var(--color-surface)) 100%
+            );
         color: var(--color-text);
         font-family: var(--font-sans);
         text-rendering: optimizeLegibility;
@@ -43,7 +50,11 @@
         border: 1px solid var(--color-border);
         border-radius: var(--radius-lg);
         background:
-            linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 10%, var(--color-surface)) 0%, var(--color-surface) 70%),
+            linear-gradient(
+                135deg,
+                color-mix(in srgb, var(--color-primary) 10%, var(--color-surface)) 0%,
+                var(--color-surface) 70%
+            ),
             var(--color-surface);
         padding: 2rem;
         box-shadow: var(--shadow-md);
@@ -66,7 +77,11 @@
         padding: 0.6rem 1rem;
         font-size: 0.95rem;
         font-weight: 650;
-        transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, opacity 120ms ease;
+        transition:
+            background-color 120ms ease,
+            border-color 120ms ease,
+            color 120ms ease,
+            opacity 120ms ease;
         cursor: pointer;
     }
 

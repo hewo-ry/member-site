@@ -27,21 +27,36 @@ const FeeForm = ({ memberId }: Props) => {
     }, [router, state.state]);
 
     return (
-        <form action={formAction} className='grid gap-4 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4'>
+        <form
+            action={formAction}
+            className='grid gap-4 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4'
+        >
             <input type='hidden' name='memberId' value={memberId} />
             <div className='grid gap-4 sm:grid-cols-2'>
                 <div>
                     <label className='field-label' htmlFor='amount'>
                         Määrä
                     </label>
-                    <input className='input' id='amount' name='amount' placeholder='Esim. 30' defaultValue={state.fee.amount} />
+                    <input
+                        className='input'
+                        id='amount'
+                        name='amount'
+                        placeholder='Esim. 30'
+                        defaultValue={state.fee.amount}
+                    />
                     {'errors' in state && state.errors?.amount && <p className='error-text'>{state.errors.amount}</p>}
                 </div>
                 <div>
                     <label className='field-label' htmlFor='year'>
                         Vuosi
                     </label>
-                    <input className='input' id='year' name='year' placeholder='Esim. 2026' defaultValue={state.fee.year} />
+                    <input
+                        className='input'
+                        id='year'
+                        name='year'
+                        placeholder='Esim. 2026'
+                        defaultValue={state.fee.year}
+                    />
                     {'errors' in state && state.errors?.year && <p className='error-text'>{state.errors.year}</p>}
                 </div>
             </div>
