@@ -32,7 +32,7 @@ const FeeForm = ({ memberId }: Props) => {
             <div className='grid gap-4 sm:grid-cols-2'>
                 <div>
                     <label className='field-label' htmlFor='amount'>
-                        Maara
+                        Määrä
                     </label>
                     <input className='input' id='amount' name='amount' placeholder='Esim. 30' defaultValue={state.fee.amount} />
                     {'errors' in state && state.errors?.amount && <p className='error-text'>{state.errors.amount}</p>}
@@ -46,12 +46,12 @@ const FeeForm = ({ memberId }: Props) => {
                 </div>
             </div>
             <button className='btn btn-secondary w-fit' disabled={isPending}>
-                {isPending ? 'Tallennetaan...' : 'Lisaa maksu'}
+                {isPending ? 'Tallennetaan...' : 'Lisää maksu'}
             </button>
             {state.state === FeeFormStateState.OPTIRE_FAILED && (
-                <p className='error-text'>Maksun lisaaminen epaonnistui, yrita myohemmin uudelleen.</p>
+                <p className='error-text'>Maksun lisääminen epäonnistui, yritä myöhemmin uudelleen.</p>
             )}
-            {state.state === FeeFormStateState.OPTIRE_SUCCESS && <p className='success-text'>Maksu lisatty.</p>}
+            {state.state === FeeFormStateState.OPTIRE_SUCCESS && <p className='success-text'>Maksu lisätty.</p>}
         </form>
     );
 };

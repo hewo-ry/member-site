@@ -34,20 +34,20 @@ const ApplicationForm = () => {
             </div>
             <div>
                 <label className='field-label' htmlFor='email'>
-                    Sahkoposti
+                    Sähköposti
                 </label>
-                <input className='input' id='email' name='email' placeholder='Sahkopostiosoite' defaultValue={state.application.email} />
+                <input className='input' id='email' name='email' placeholder='Sähköpostiosoite' defaultValue={state.application.email} />
                 {'errors' in state && state.errors?.email && <p className='error-text'>{state.errors.email}</p>}
             </div>
             <button className='btn btn-primary w-fit' disabled={isPending}>
-                {isPending ? 'Lahetetaan...' : 'Laheta hakemus'}
+                {isPending ? 'Lähetetään...' : 'Lähetä hakemus'}
             </button>
             {state.state === ApplicationFormStateState.OPTIRE_FAILED && (
-                <p className='error-text'>Hakemuksen lahettaminen epaonnistui, yrita myohemmin uudelleen.</p>
+                <p className='error-text'>Hakemuksen lähettäminen epäonnistui, yritä myöhemmin uudelleen.</p>
             )}
         </form>
     ) : (
-        <p className='success-text'>Kiitos hakemuksesta! Olemme sinuun yhteydessa kasittelyn edetessa.</p>
+        <p className='success-text'>Kiitos hakemuksesta! Olemme sinuun yhteydessä käsittelyn edetessä.</p>
     );
 };
 

@@ -21,7 +21,7 @@ const Page = async ({ params }: Props) => {
                         <dd>{member.person.fullName}</dd>
                     </div>
                     <div className='card'>
-                        <dt className='field-label'>Sahkoposti</dt>
+                        <dt className='field-label'>Sähköposti</dt>
                         <dd>{member.person.email}</dd>
                     </div>
                     <div className='card sm:col-span-2'>
@@ -33,14 +33,14 @@ const Page = async ({ params }: Props) => {
 
             <section className='section'>
                 <h2 className='text-2xl font-semibold'>Maksut</h2>
-                <p className='mt-2 text-sm text-[var(--color-text-muted)]'>Lisaa tai poista jasenmaksuja tarvittaessa.</p>
+                <p className='mt-2 text-sm text-[var(--color-text-muted)]'>Lisää tai poista jäsenmaksuja tarvittaessa.</p>
                 <div className='mt-5'>
                     <FeeTable memberId={member.id} fees={member.fees} />
                 </div>
             </section>
         </div>
     ) : (
-        <p className='error-text'>Virhe jasenen tietojen latauksessa.</p>
+        <p className='error-text'>Virhe jäsenen tietojen latauksessa.</p>
     );
 };
 

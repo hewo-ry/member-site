@@ -14,8 +14,8 @@ const Page = async () => {
 
     return (
         <section className='section'>
-            <h2 className='text-2xl font-semibold'>Jasenet</h2>
-            <p className='mt-2 text-sm text-[var(--color-text-muted)]'>Avaa jasenen tiedot klikkaamalla nimea.</p>
+            <h2 className='text-2xl font-semibold'>Jäsenet</h2>
+            <p className='mt-2 text-sm text-[var(--color-text-muted)]'>Avaa jäsenen tiedot klikkaamalla nimeä.</p>
 
             <div className='table-shell mt-5'>
                 <table className='table'>

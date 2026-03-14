@@ -17,7 +17,7 @@ const FeeTable = ({ fees, memberId }: Props) => (
             <table className='table'>
                 <thead>
                     <tr>
-                        <th>Maara</th>
+                        <th>Määrä</th>
                         <th>Kausi</th>
                         <th>Kirjattu</th>
                         <th aria-label='Toiminnot' />

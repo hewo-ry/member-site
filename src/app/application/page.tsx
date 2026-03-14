@@ -8,9 +8,9 @@ const Page = () => {
 	return (
 		<div className='page-shell'>
 			<section className='section'>
-				<h1 className='text-3xl font-semibold'>Jasenhakemus</h1>
+				<h1 className='text-3xl font-semibold'>Jäsenhakemus</h1>
 				<p className='mt-3 max-w-3xl text-[var(--color-text-muted)]'>
-					Tayta hakemus huolellisesti. Kasittelemme tiedot luottamuksellisesti yhdistyksen jasenprosessin mukaisesti.
+					Täytä hakemus huolellisesti. Käsittelemme tiedot luottamuksellisesti yhdistyksen jäsenprosessin mukaisesti.
 				</p>
 				<p className='mt-2 max-w-3xl text-[var(--color-text-muted)]'>{content.joinBody}</p>
 			</section>
