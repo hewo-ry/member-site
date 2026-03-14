@@ -18,7 +18,7 @@ const FeeTable = ({ hideFeeActions, fees, memberId }: Props) => (
             <table className='table'>
                 <thead>
                     <tr>
-                        <th>Maara</th>
+                        <th>Määrä</th>
                         <th>Kausi</th>
                         <th>Kirjattu</th>
                         {!hideFeeActions && <th aria-label='Toiminnot' />}

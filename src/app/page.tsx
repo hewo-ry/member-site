@@ -19,7 +19,7 @@ const Page = async () => {
                 <p className='mt-4 max-w-2xl text-[1.04rem] text-[var(--color-text-muted)]'>{content.heroBody}</p>
                 <div className='mt-6 flex flex-wrap gap-3'>
                     <Link className='btn btn-primary' href='/application'>
-                        Hae jaseneksi
+                        Hae jäseneksi
                     </Link>
                     <SignInButton />
                 </div>
@@ -34,7 +34,7 @@ const Page = async () => {
                 <h2 className='text-2xl font-semibold'>{content.joinTitle}</h2>
                 <p className='mt-3 max-w-3xl text-[var(--color-text-muted)]'>{content.joinBody}</p>
                 <Link className='btn btn-secondary mt-5' href='/application'>
-                    Avaa jasenhakemus
+                    Avaa jäsenhakemus
                 </Link>
             </section>
 

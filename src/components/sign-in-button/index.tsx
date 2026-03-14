@@ -11,7 +11,7 @@ const SignInButton = () => {
 
     return (
         <button className='btn btn-primary' onClick={handleClick}>
-            Kirjaudu sisaan
+            Kirjaudu sisään
         </button>
     );
 };

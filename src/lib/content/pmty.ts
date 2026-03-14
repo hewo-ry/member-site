@@ -14,7 +14,7 @@ const pmtyContent: OrganizationContent = {
         'Täytä jäsenhakemus huolellisesti. Hakemus käsitellään yhdistyksen käytäntöjen mukaisesti, ja saat vahvistuksen sähköpostitse. Jäsenenä pääset tukemaan toimintaa ja osallistumaan yhdistyksen viestintään ja tapahtumiin.',
     contactTitle: 'Yhteys ja hallitus',
     contactBody:
-        'Yhteydenotot: [sahkoposti@esimerkki.fi]. Hallitus vastaa jasenasioista, viestinnasta ja toiminnan kehittamisesta. Lisaa tahan ajantasaiset hallituksen roolit, nimet ja yhteystiedot.',
+        'Yhteydenotot: [sahkoposti@esimerkki.fi]. Hallitus vastaa jäsenasioista, viestinnästä ja toiminnan kehittämisestä. Lisää tähän ajantasaiset hallituksen roolit, nimet ja yhteystiedot.',
 };
 
 export default pmtyContent;

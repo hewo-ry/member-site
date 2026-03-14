@@ -8,8 +8,8 @@ const Layout = ({
     <div className='page-shell'>
         <header className='mb-6 flex flex-col gap-3 border-b border-[var(--color-border)] pb-4 sm:flex-row sm:items-center sm:justify-between'>
             <div>
-                <p className='text-sm text-[var(--color-text-muted)]'>Jasenhallinta</p>
-                <h1 className='text-2xl font-semibold'>Jasensivusto</h1>
+                <p className='text-sm text-[var(--color-text-muted)]'>Jäsenhallinta</p>
+                <h1 className='text-2xl font-semibold'>Jäsensivusto</h1>
             </div>
             <SignOutButton />
         </header>
