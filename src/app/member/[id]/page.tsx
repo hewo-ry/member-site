@@ -12,16 +12,35 @@ const Page = async ({ params }: Props) => {
     if (error) console.error(error);
 
     return member ? (
-        <div>
-            <h1>Perustiedot</h1>
-            <span>Nimi: {member.person.fullName}</span>
-            <span>Sähköposti: {member.person.email}</span>
-            <span>Tyyppi: {member.type}</span>
-            <h2>Maksut</h2>
-            <FeeTable memberId={member.id} fees={member.fees} />
+        <div className='space-y-6'>
+            <section className='section'>
+                <h2 className='text-2xl font-semibold'>Perustiedot</h2>
+                <dl className='mt-4 grid gap-3 sm:grid-cols-2'>
+                    <div className='card'>
+                        <dt className='field-label'>Nimi</dt>
+                        <dd>{member.person.fullName}</dd>
+                    </div>
+                    <div className='card'>
+                        <dt className='field-label'>Sahkoposti</dt>
+                        <dd>{member.person.email}</dd>
+                    </div>
+                    <div className='card sm:col-span-2'>
+                        <dt className='field-label'>Tyyppi</dt>
+                        <dd>{member.type}</dd>
+                    </div>
+                </dl>
+            </section>
+
+            <section className='section'>
+                <h2 className='text-2xl font-semibold'>Maksut</h2>
+                <p className='mt-2 text-sm text-[var(--color-text-muted)]'>Lisaa tai poista jasenmaksuja tarvittaessa.</p>
+                <div className='mt-5'>
+                    <FeeTable memberId={member.id} fees={member.fees} />
+                </div>
+            </section>
         </div>
     ) : (
-        <span>VIRHE</span>
+        <p className='error-text'>Virhe jasenen tietojen latauksessa.</p>
     );
 };
 

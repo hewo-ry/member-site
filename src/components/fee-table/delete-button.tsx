@@ -16,7 +16,11 @@ const DeleteButton = ({ memberId, feeId }: Props) => {
     const router = useRouter();
     const handleDelete = () => deleteAssociationMemberFee(undefined, memberId, feeId).then(() => router.refresh());
 
-    return <button onClick={handleDelete}>POISTA</button>;
+    return (
+        <button className='btn btn-danger' onClick={handleDelete} type='button'>
+            Poista
+        </button>
+    );
 };
 
 export default DeleteButton;

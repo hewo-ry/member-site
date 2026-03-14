@@ -13,26 +13,33 @@ const Page = async () => {
     // TODO: ohjaa käyttäjä suoraan omalle sivulle jos ei ole oikeutta
 
     return (
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nimi</th>
-                        <th>Tyyppi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {association?.members.map(({ id, person: { fullName }, type }) => (
-                        <tr key={id}>
-                            <td>
-                                <Link href={`/member/${id}`}>{fullName}</Link>
-                            </td>
-                            <td>{type}</td>
+        <section className='section'>
+            <h2 className='text-2xl font-semibold'>Jasenet</h2>
+            <p className='mt-2 text-sm text-[var(--color-text-muted)]'>Avaa jasenen tiedot klikkaamalla nimea.</p>
+
+            <div className='table-shell mt-5'>
+                <table className='table'>
+                    <thead>
+                        <tr>
+                            <th>Nimi</th>
+                            <th>Tyyppi</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {association?.members.map(({ id, person: { fullName }, type }) => (
+                            <tr key={id}>
+                                <td>
+                                    <Link className='table-link' href={`/member/${id}`}>
+                                        {fullName}
+                                    </Link>
+                                </td>
+                                <td>{type}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </section>
     );
 };
 

@@ -16,7 +16,11 @@ const SignOutButton = () => {
             },
         });
 
-    return <button onClick={handleClick}>Kirjaudu ulos</button>;
+    return (
+        <button className='btn btn-secondary' onClick={handleClick}>
+            Kirjaudu ulos
+        </button>
+    );
 };
 
 export default SignOutButton;
