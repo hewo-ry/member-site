@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useActionState, useEffect } from 'react';
 
 import { submitFee } from '@/lib/fee';
+import { FeeFormStateState } from '@/lib/fee/contants';
 import { FeeFormState } from '@/lib/fee/types';
 
 interface Props {
@@ -17,11 +18,11 @@ const FeeForm = ({ memberId }: Props) => {
         fee: {
             memberId,
         },
-        state: 'INVALID',
+        state: FeeFormStateState.INVALID,
     });
 
     useEffect(() => {
-        if (state.state !== 'OPTIRE_SUCCESS') return;
+        if (state.state !== FeeFormStateState.OPTIRE_SUCCESS) return;
         router.refresh();
     }, [router, state.state]);
 
@@ -37,8 +38,10 @@ const FeeForm = ({ memberId }: Props) => {
                 {'errors' in state && state.errors?.year && <span>{state.errors.year}</span>}
             </div>
             <button disabled={isPending}>Lähetä</button>
-            {state.state === 'OPTIRE_FAILED' && <span>Maksun lisääminen epäonnistui, yritä myöhemmin uudelleen</span>}
-            {state.state === 'OPTIRE_SUCCESS' && <span>Maksu lisätty!</span>}
+            {state.state === FeeFormStateState.OPTIRE_FAILED && (
+                <span>Maksun lisääminen epäonnistui, yritä myöhemmin uudelleen</span>
+            )}
+            {state.state === FeeFormStateState.OPTIRE_SUCCESS && <span>Maksu lisätty!</span>}
         </form>
     );
 };

@@ -1,4 +1,5 @@
 import { ProblemDetails } from '../optire/types';
+import { ApplicationFormStateState } from './contants';
 
 export interface Application {
     firstName: string;
@@ -9,17 +10,17 @@ export interface Application {
 interface InvalidApplicationFormState {
     application: Partial<Application>;
     errors?: Partial<Record<keyof Application, string>>;
-    state: 'INVALID';
+    state: ApplicationFormStateState.INVALID;
 }
 
 interface OptireFailedApplicationFormState {
     application: Partial<Application>;
-    state: 'OPTIRE_FAILED';
+    state: ApplicationFormStateState.OPTIRE_FAILED;
     error: ProblemDetails;
 }
 
 interface OptireSuccessApplicationFormState {
-    state: 'OPTIRE_SUCCESS';
+    state: ApplicationFormStateState.OPTIRE_SUCCESS;
 }
 
 export type ApplicationFormState =

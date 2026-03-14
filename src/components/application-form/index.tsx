@@ -3,6 +3,7 @@
 import { useActionState } from 'react';
 
 import { submitApplication } from '@/lib/application';
+import { ApplicationFormStateState } from '@/lib/application/contants';
 import { ApplicationFormState } from '@/lib/application/types';
 
 // TODO: metadata
@@ -10,12 +11,12 @@ import { ApplicationFormState } from '@/lib/application/types';
 const ApplicationForm = () => {
     const [state, formAction, isPending] = useActionState<ApplicationFormState>(submitApplication, {
         application: {},
-        state: 'INVALID',
+        state: ApplicationFormStateState.INVALID,
     });
 
     // TODO: preferredFirstName, preferredLastName
 
-    return state.state !== 'OPTIRE_SUCCESS' ? (
+    return state.state !== ApplicationFormStateState.OPTIRE_SUCCESS ? (
         <form action={formAction}>
             <div>
                 <input name='firstName' placeholder='Etunimi' defaultValue={state.application.firstName} />
@@ -30,7 +31,7 @@ const ApplicationForm = () => {
                 {'errors' in state && state.errors?.email && <span>{state.errors.email}</span>}
             </div>
             <button disabled={isPending}>Lähetä</button>
-            {state.state === 'OPTIRE_FAILED' && (
+            {state.state === ApplicationFormStateState.OPTIRE_FAILED && (
                 <span>Hakemuksen lähettäminen epäonnistui, yritä myöhemmin uudelleen</span>
             )}
         </form>

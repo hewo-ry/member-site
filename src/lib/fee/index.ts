@@ -1,6 +1,7 @@
 'use server';
 
 import { createAssociationMemberFee } from '../association';
+import { FeeFormStateState } from './contants';
 import { Fee, FeeFormState } from './types';
 
 export const submitFee = async (_: FeeFormState, formData?: FormData): Promise<FeeFormState> => {
@@ -25,7 +26,7 @@ export const submitFee = async (_: FeeFormState, formData?: FormData): Promise<F
         return {
             fee,
             errors,
-            state: 'INVALID',
+            state: FeeFormStateState.INVALID,
         };
 
     const { error } = await createAssociationMemberFee(undefined, memberId, {
@@ -38,11 +39,11 @@ export const submitFee = async (_: FeeFormState, formData?: FormData): Promise<F
         ? {
               fee,
               error,
-              state: 'OPTIRE_FAILED',
+              state: FeeFormStateState.OPTIRE_FAILED,
           }
         : {
               fee: {},
-              state: 'OPTIRE_SUCCESS',
+              state: FeeFormStateState.OPTIRE_SUCCESS,
           };
 };
 

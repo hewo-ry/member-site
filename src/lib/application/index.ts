@@ -1,6 +1,7 @@
 'use server';
 
 import { createAssociationMember } from '../association';
+import { ApplicationFormStateState } from './contants';
 import { Application, ApplicationFormState } from './types';
 
 export const submitApplication = async (
@@ -34,7 +35,7 @@ export const submitApplication = async (
         return {
             application,
             errors,
-            state: 'INVALID',
+            state: ApplicationFormStateState.INVALID,
         };
 
     const { error } = await createAssociationMember(undefined, {
@@ -46,9 +47,9 @@ export const submitApplication = async (
         ? {
               application,
               error,
-              state: 'OPTIRE_FAILED',
+              state: ApplicationFormStateState.OPTIRE_FAILED,
           }
         : {
-              state: 'OPTIRE_SUCCESS',
+              state: ApplicationFormStateState.OPTIRE_SUCCESS,
           };
 };

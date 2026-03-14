@@ -1,4 +1,5 @@
 import { ProblemDetails } from '../optire/types';
+import { FeeFormStateState } from './contants';
 
 export interface Fee {
     memberId: string;
@@ -9,18 +10,18 @@ export interface Fee {
 interface InvalidFeeFormState {
     fee: Partial<Fee>;
     errors?: Partial<Record<keyof Fee, string>>;
-    state: 'INVALID';
+    state: FeeFormStateState.INVALID;
 }
 
 interface OptireFailedFeeFormState {
     fee: Partial<Fee>;
-    state: 'OPTIRE_FAILED';
+    state: FeeFormStateState.OPTIRE_FAILED;
     error: ProblemDetails;
 }
 
 interface OptireSuccessFeeFormState {
     fee: Partial<Fee>;
-    state: 'OPTIRE_SUCCESS';
+    state: FeeFormStateState.OPTIRE_SUCCESS;
 }
 
 export type FeeFormState = InvalidFeeFormState | OptireFailedFeeFormState | OptireSuccessFeeFormState;
