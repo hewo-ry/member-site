@@ -14,7 +14,9 @@ const Page = async () => {
     return (
         <div className='page-shell'>
             <section className='hero'>
-                <p className='text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]'>{content.shortName}</p>
+                <p className='text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]'>
+                    {content.shortName}
+                </p>
                 <h1 className='mt-3 text-4xl font-semibold leading-tight'>{association?.name ?? content.fullName}</h1>
                 <p className='mt-4 max-w-2xl text-[1.04rem] text-[var(--color-text-muted)]'>{content.heroBody}</p>
                 <div className='mt-6 flex flex-wrap gap-3'>

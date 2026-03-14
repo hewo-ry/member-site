@@ -1,6 +1,5 @@
 // TODO: metadata
 // TODO: front
-
 import '@/styles/globals.css';
 import '@/theme/active.css';
 

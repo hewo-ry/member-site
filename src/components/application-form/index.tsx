@@ -22,21 +22,39 @@ const ApplicationForm = () => {
                 <label className='field-label' htmlFor='firstName'>
                     Etunimi
                 </label>
-                <input className='input' id='firstName' name='firstName' placeholder='Etunimi' defaultValue={state.application.firstName} />
+                <input
+                    className='input'
+                    id='firstName'
+                    name='firstName'
+                    placeholder='Etunimi'
+                    defaultValue={state.application.firstName}
+                />
                 {'errors' in state && state.errors?.firstName && <p className='error-text'>{state.errors.firstName}</p>}
             </div>
             <div>
                 <label className='field-label' htmlFor='lastName'>
                     Sukunimi
                 </label>
-                <input className='input' id='lastName' name='lastName' placeholder='Sukunimi' defaultValue={state.application.lastName} />
+                <input
+                    className='input'
+                    id='lastName'
+                    name='lastName'
+                    placeholder='Sukunimi'
+                    defaultValue={state.application.lastName}
+                />
                 {'errors' in state && state.errors?.lastName && <p className='error-text'>{state.errors.lastName}</p>}
             </div>
             <div>
                 <label className='field-label' htmlFor='email'>
                     Sähköposti
                 </label>
-                <input className='input' id='email' name='email' placeholder='Sähköpostiosoite' defaultValue={state.application.email} />
+                <input
+                    className='input'
+                    id='email'
+                    name='email'
+                    placeholder='Sähköpostiosoite'
+                    defaultValue={state.application.email}
+                />
                 {'errors' in state && state.errors?.email && <p className='error-text'>{state.errors.email}</p>}
             </div>
             <button className='btn btn-primary w-fit' disabled={isPending}>
