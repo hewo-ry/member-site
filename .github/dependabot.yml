@@ -1,0 +1,30 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+
+    # Disable non-security version updates
+    open-pull-requests-limit: 0
+
+    groups:
+      security-updates:
+        dependency-type: production
+        applies-to: security-updates
+
+    assignees:
+      - Aikain
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+
+    groups:
+      updates:
+        patterns:
+          - "*"
+
+    assignees:
+      - Aikain
