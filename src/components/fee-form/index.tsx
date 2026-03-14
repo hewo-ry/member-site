@@ -25,8 +25,6 @@ const FeeForm = ({ memberId }: Props) => {
         router.refresh();
     }, [router, state.state]);
 
-    console.log(state);
-
     return (
         <form action={formAction}>
             <input type='hidden' name='memberId' value={memberId} />
