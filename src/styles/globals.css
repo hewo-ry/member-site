@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
 @layer base {
+
     html,
     body {
         min-height: 100%;
@@ -10,7 +11,7 @@
         margin: 0;
         background:
             radial-gradient(circle at top right, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 40%),
-            linear-gradient(180deg, var(--color-bg) 0%, color-mix(in srgb, var(--color-bg) 85%, white) 100%);
+            linear-gradient(180deg, var(--color-bg) 0%, color-mix(in srgb, var(--color-bg) 82%, var(--color-surface)) 100%);
         color: var(--color-text);
         font-family: var(--font-sans);
         text-rendering: optimizeLegibility;
@@ -113,7 +114,7 @@
     }
 
     .input::placeholder {
-        color: color-mix(in srgb, var(--color-text-muted) 80%, white);
+        color: color-mix(in srgb, var(--color-text-muted) 88%, var(--color-surface));
     }
 
     .input:focus-visible {
