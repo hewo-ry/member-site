@@ -9,7 +9,11 @@ const SignInButton = () => {
             callbackURL: '/member',
         });
 
-    return <button onClick={handleClick}>Kirjaudu sisään</button>;
+    return (
+        <button className='btn btn-primary' onClick={handleClick}>
+            Kirjaudu sisaan
+        </button>
+    );
 };
 
 export default SignInButton;
