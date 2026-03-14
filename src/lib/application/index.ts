@@ -1,16 +1,17 @@
 'use server';
 
-import { ApplicationFormState } from './types';
+import { createAssociationMember } from '../association';
+import { Application, ApplicationFormState } from './types';
 
 export const submitApplication = async (
-    prevState: ApplicationFormState,
+    _: ApplicationFormState,
     formData?: FormData,
 ): Promise<ApplicationFormState> => {
     const firstName = (formData?.get('firstName') as string | undefined)?.trim();
     const lastName = (formData?.get('lastName') as string | undefined)?.trim();
     const email = (formData?.get('email') as string | undefined)?.trim();
 
-    const errors: ApplicationFormState['errors'] = {};
+    const errors: Partial<Record<keyof Application, string>> = {};
 
     if (!firstName || firstName.length == 0) errors['firstName'] = 'Etunimi puuttuu!';
     else if (firstName.length > 32) errors['firstName'] = 'Etunimi saa olla enintään 32 merkkiä pitkä';
@@ -23,28 +24,31 @@ export const submitApplication = async (
     else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email))
         errors['email'] = 'Sähköposti ei ole kelvollinen';
 
-    const application: ApplicationFormState['application'] = {
+    const application: Partial<Application> = {
         firstName,
         lastName,
         email,
     };
 
-    if (Object.keys(errors).length > 0)
+    if (Object.keys(errors).length > 0 || !firstName || !lastName || !email)
         return {
             application,
             errors,
-            success: false,
+            state: 'INVALID',
         };
 
-    // TODO
-    console.log('send application', application);
+    const { error } = await createAssociationMember(undefined, {
+        person: { firstName, lastName, email },
+        type: 'BASIC',
+    });
 
-    return {
-        application: {
-            firstName,
-            lastName,
-            email,
-        },
-        success: true,
-    };
+    return error
+        ? {
+              application,
+              error,
+              state: 'OPTIRE_FAILED',
+          }
+        : {
+              state: 'OPTIRE_SUCCESS',
+          };
 };
