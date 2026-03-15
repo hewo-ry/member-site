@@ -2,65 +2,33 @@
     --font-sans: 'Fraunces', 'Bitter', 'Georgia', serif;
     color-scheme: light;
 
-    --color-bg: #f7f5ef;
-    --color-surface: #fffdf8;
-    --color-surface-soft: #f1ece0;
-    --color-border: #dbcfb8;
+    --color-bg: #f0f7ff;
+    --color-surface: #ffffff;
+    --color-surface-soft: #e1f0ff;
+    --color-border: #b8d8f8;
 
-    --color-text: #2b2417;
-    --color-text-muted: #6d5d3d;
+    --color-text: #0d1d2e;
+    --color-text-muted: #3e5a78;
 
-    --color-primary: #9b6f1f;
-    --color-primary-hover: #7d5918;
+    --color-primary: #03a1ff;
+    --color-primary-hover: #0089e0;
     --color-primary-contrast: #ffffff;
 
-    --color-secondary: #3f5f32;
-    --color-secondary-hover: #324c28;
+    --color-secondary: #3f6b9f;
+    --color-secondary-hover: #2d5083;
     --color-secondary-contrast: #ffffff;
 
-    --color-danger: #a33f32;
-    --color-danger-hover: #873429;
+    --color-danger: #d43f53;
+    --color-danger-hover: #b32e44;
     --color-danger-contrast: #ffffff;
 
-    --color-success: #3f7d4f;
-    --color-warning: #915f16;
+    --color-success: #1a9f52;
+    --color-warning: #9a6700;
 
-    --shadow-sm: 0 2px 8px rgb(43 36 23 / 0.06);
-    --shadow-md: 0 8px 24px rgb(43 36 23 / 0.12);
+    --shadow-sm: 0 2px 8px rgb(13 29 46 / 0.07);
+    --shadow-md: 0 8px 24px rgb(13 29 46 / 0.13);
 
     --radius-sm: 0.5rem;
     --radius-md: 0.75rem;
     --radius-lg: 1rem;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        color-scheme: dark;
-
-        --color-bg: #19140d;
-        --color-surface: #241c12;
-        --color-surface-soft: #302518;
-        --color-border: #5e4521;
-
-        --color-text: #f8f0dd;
-        --color-text-muted: #d4bd90;
-
-        --color-primary: #d1a349;
-        --color-primary-hover: #e0b45b;
-        --color-primary-contrast: #261a08;
-
-        --color-secondary: #6f8f5a;
-        --color-secondary-hover: #84a86a;
-        --color-secondary-contrast: #101806;
-
-        --color-danger: #de7668;
-        --color-danger-hover: #ea8a7d;
-        --color-danger-contrast: #260d08;
-
-        --color-success: #88c28d;
-        --color-warning: #f0c56b;
-
-        --shadow-sm: 0 6px 18px rgb(0 0 0 / 0.26);
-        --shadow-md: 0 16px 40px rgb(0 0 0 / 0.36);
-    }
 }

@@ -1,23 +1,22 @@
 import Link from 'next/link';
 
+import StatusPage from '@/components/status-page';
+
 const ForbiddenPage = () => (
-    <div className='page-shell'>
-        <section className='section space-y-4'>
-            <p className='text-sm font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]'>403</p>
-            <h1 className='text-3xl font-semibold'>Pääsy estetty</h1>
-            <p className='text-[var(--color-text-muted)]'>
-                Sinulla ei ole oikeuksia tähän näkymään. Jos uskot tämän olevan virhe, ota yhteyttä ylläpitoon.
-            </p>
-            <div className='flex flex-wrap gap-3'>
-                <Link className='btn btn-secondary' href='/member'>
-                    Jäsensivustolle
-                </Link>
-                <Link className='btn btn-primary' href='/'>
-                    Etusivulle
-                </Link>
-            </div>
-        </section>
-    </div>
+    <StatusPage
+        code='403'
+        title='Pääsy estetty'
+        body='Sinulla ei ole oikeuksia tähän näkymään. Jos uskot tämän olevan virhe, ota yhteyttä ylläpitoon.'
+    >
+        <div className='action-row'>
+            <Link className='btn btn-secondary' href='/member'>
+                Jäsensivustolle
+            </Link>
+            <Link className='btn btn-primary' href='/'>
+                Etusivulle
+            </Link>
+        </div>
+    </StatusPage>
 );
 
 export default ForbiddenPage;

@@ -211,4 +211,25 @@
     .table-link:hover {
         text-decoration: underline;
     }
+
+    .status-code {
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-text-muted);
+    }
+
+    .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .card-soft {
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border);
+        background-color: var(--color-surface-soft);
+        padding: 1rem;
+    }
 }

@@ -1,8 +1,10 @@
 import { headers } from 'next/headers';
+import Link from 'next/link';
 import { forbidden, notFound, unauthorized } from 'next/navigation';
 
 import { Role, auth } from '@/auth';
 import FeeTable from '@/components/fee-table';
+import StatusPage from '@/components/status-page';
 import { getAssociationMemberById } from '@/lib/association';
 
 interface Props {
@@ -60,7 +62,17 @@ const Page = async ({ params }: Props) => {
             </section>
         </div>
     ) : (
-        <p className='error-text'>Virhe jäsenen tietojen latauksessa.</p>
+        <StatusPage
+            shell={false}
+            title='Virhe tietojen latauksessa'
+            body='Jäsenen tietojen lataus epäonnistui. Yritä uudelleen hetken kuluttua.'
+        >
+            <div className='action-row'>
+                <Link className='btn btn-primary' href='/member'>
+                    Palaa jäsenlistaan
+                </Link>
+            </div>
+        </StatusPage>
     );
 };
 
