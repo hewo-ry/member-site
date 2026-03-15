@@ -44,6 +44,7 @@ export const submitFee = async (_: FeeFormState, formData?: FormData): Promise<F
         : {
               fee: {},
               state: FeeFormStateState.OPTIRE_SUCCESS,
+              timestamp: Date.now(),
           };
 };
 
