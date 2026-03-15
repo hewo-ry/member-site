@@ -1,5 +1,5 @@
 import { headers } from 'next/headers';
-import { forbidden, unauthorized } from 'next/navigation';
+import { forbidden, notFound, unauthorized } from 'next/navigation';
 
 import { auth } from '@/auth';
 import FeeTable from '@/components/fee-table';
@@ -19,6 +19,8 @@ const Page = async ({ params }: Props) => {
     if (session.user.role !== 'ADMIN' && id !== 'b0905552-77fa-442f-a197-2073b64c9d12') forbidden();
 
     const { data: member, error } = await getAssociationMemberById(undefined, id);
+
+    if (error?.status === 404) notFound();
 
     // TODO
     if (error) console.error(error);
