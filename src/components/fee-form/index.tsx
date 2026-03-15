@@ -41,6 +41,9 @@ const FeeForm = ({ memberId }: Props) => {
                         className='input'
                         id='amount'
                         name='amount'
+                        type='number'
+                        inputMode='numeric'
+                        step='1'
                         placeholder='Esim. 30'
                         defaultValue={state.fee.amount}
                     />
@@ -54,6 +57,9 @@ const FeeForm = ({ memberId }: Props) => {
                         className='input'
                         id='year'
                         name='year'
+                        type='number'
+                        inputMode='numeric'
+                        step='1'
                         placeholder='Esim. 2026'
                         defaultValue={state.fee.year}
                     />

@@ -11,6 +11,16 @@ const nextConfig: NextConfig = {
             '@/theme/active.css': `./src/theme/${themeFileName}.css`,
         },
     },
+    webpack: (config) => {
+         if (!config.resolve) {
+             config.resolve = {};
+         }
+         if (!config.resolve.alias) {
+             config.resolve.alias = {};
+         }
+         config.resolve.alias['@/theme/active.css'] = `./src/theme/${themeFileName}.css`;
+         return config;
+     },
 };
 
 export default nextConfig;

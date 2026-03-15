@@ -52,6 +52,8 @@ const ApplicationForm = () => {
                     className='input'
                     id='email'
                     name='email'
+                    type='email'
+                    autoComplete='email'
                     placeholder='Sähköpostiosoite'
                     defaultValue={state.application.email}
                 />
