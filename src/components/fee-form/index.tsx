@@ -28,10 +28,7 @@ const FeeForm = ({ memberId }: Props) => {
     }, [router, state.state, timestamp]);
 
     return (
-        <form
-            action={formAction}
-            className='grid gap-4 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4'
-        >
+        <form action={formAction} className='card-soft grid gap-4'>
             <input type='hidden' name='memberId' value={memberId} />
             <div className='grid gap-4 sm:grid-cols-2'>
                 <div>
