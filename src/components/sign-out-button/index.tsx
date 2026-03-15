@@ -1,20 +1,15 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
 import { signOut } from '@/auth-client';
+import { getLogoutUrl } from '@/lib/auth/utils';
 
 const SignOutButton = () => {
-    const router = useRouter();
-
-    const handleClick = () =>
-        signOut({
-            fetchOptions: {
-                onSuccess: () => {
-                    router.push('/');
-                },
-            },
+    const handleClick = async () => {
+        const logoutUrl = await getLogoutUrl(window.origin).catch(() => window.origin);
+        return signOut().then(() => {
+            window.location.href = logoutUrl;
         });
+    };
 
     return (
         <button className='btn btn-secondary' onClick={handleClick}>

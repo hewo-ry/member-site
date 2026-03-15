@@ -21,10 +21,11 @@ const FeeForm = ({ memberId }: Props) => {
         state: FeeFormStateState.INVALID,
     });
 
+    const timestamp = 'timestamp' in state ? state.timestamp : null;
     useEffect(() => {
         if (state.state !== FeeFormStateState.OPTIRE_SUCCESS) return;
         router.refresh();
-    }, [router, state.state]);
+    }, [router, state.state, timestamp]);
 
     return (
         <form
@@ -72,7 +73,9 @@ const FeeForm = ({ memberId }: Props) => {
             {state.state === FeeFormStateState.OPTIRE_FAILED && (
                 <p className='error-text'>Maksun lisääminen epäonnistui, yritä myöhemmin uudelleen.</p>
             )}
-            {state.state === FeeFormStateState.OPTIRE_SUCCESS && <p className='success-text'>Maksu lisätty.</p>}
+            {state.state === FeeFormStateState.OPTIRE_SUCCESS && !isPending && (
+                <p className='success-text'>Maksu lisätty.</p>
+            )}
         </form>
     );
 };

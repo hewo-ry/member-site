@@ -4,6 +4,7 @@ import { Fee, Member } from '@/lib/association/types';
 import DeleteButton from './delete-button';
 
 interface Props {
+    hideFeeActions: boolean;
     memberId: Member['id'];
     fees: Fee[];
 }
@@ -11,7 +12,7 @@ interface Props {
 const currencyFormatter = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'EUR' });
 const dateTimeFormatter = new Intl.DateTimeFormat();
 
-const FeeTable = ({ fees, memberId }: Props) => (
+const FeeTable = ({ hideFeeActions, fees, memberId }: Props) => (
     <>
         <div className='table-shell'>
             <table className='table'>
@@ -20,7 +21,7 @@ const FeeTable = ({ fees, memberId }: Props) => (
                         <th>Määrä</th>
                         <th>Kausi</th>
                         <th>Kirjattu</th>
-                        <th aria-label='Toiminnot' />
+                        {!hideFeeActions && <th aria-label='Toiminnot' />}
                     </tr>
                 </thead>
                 <tbody>
@@ -29,19 +30,21 @@ const FeeTable = ({ fees, memberId }: Props) => (
                             <td>{currencyFormatter.format(amount)}</td>
                             <td>{dateTimeFormatter.formatRange(new Date(seasonStartTime), new Date(seasonEndTime))}</td>
                             <td>{new Date(created).toLocaleString()}</td>
-                            <td>
-                                {/* TODO: show only for admin */}
-                                <DeleteButton memberId={memberId} feeId={id} />
-                            </td>
+                            {!hideFeeActions && (
+                                <td>
+                                    <DeleteButton memberId={memberId} feeId={id} />
+                                </td>
+                            )}
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
-        {/* TODO: show only for admin */}
-        <div className='mt-4'>
-            <FeeForm memberId={memberId} />
-        </div>
+        {!hideFeeActions && (
+            <div className='mt-4'>
+                <FeeForm memberId={memberId} />
+            </div>
+        )}
     </>
 );
 

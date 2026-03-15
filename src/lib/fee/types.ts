@@ -22,6 +22,7 @@ interface OptireFailedFeeFormState {
 interface OptireSuccessFeeFormState {
     fee: Partial<Fee>;
     state: FeeFormStateState.OPTIRE_SUCCESS;
+    timestamp: number;
 }
 
 export type FeeFormState = InvalidFeeFormState | OptireFailedFeeFormState | OptireSuccessFeeFormState;
