@@ -2,17 +2,17 @@ import { headers } from 'next/headers';
 import Link from 'next/link';
 import { redirect, unauthorized } from 'next/navigation';
 
-import { auth } from '@/auth';
+import { Role, auth } from '@/auth';
 import { getAssociationById } from '@/lib/association';
 
 // TODO: metadata
 
 const Page = async () => {
     const session = await auth.api.getSession({ headers: await headers() });
-    if (!session || session.user.role === 'NONE') unauthorized();
+    if (!session || session.user.role === Role.NONE) unauthorized();
 
     // TODO: remove hardcoded id
-    if (session.user.role !== 'ADMIN') redirect('/member/b0905552-77fa-442f-a197-2073b64c9d12');
+    if (session.user.role !== Role.ADMIN) redirect('/member/b0905552-77fa-442f-a197-2073b64c9d12');
 
     const { data: association, error } = await getAssociationById();
 

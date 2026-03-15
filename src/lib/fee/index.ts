@@ -3,7 +3,7 @@
 import { headers } from 'next/headers';
 import { forbidden, unauthorized } from 'next/navigation';
 
-import { auth } from '@/auth';
+import { Role, auth } from '@/auth';
 
 import { createAssociationMemberFee } from '../association';
 import { FeeFormStateState } from './contants';
@@ -11,8 +11,8 @@ import { Fee, FeeFormState } from './types';
 
 export const submitFee = async (_: FeeFormState, formData?: FormData): Promise<FeeFormState> => {
     const session = await auth.api.getSession({ headers: await headers() });
-    if (!session || session.user.role === 'NONE') unauthorized();
-    if (session.user.role !== 'ADMIN') forbidden();
+    if (!session || session.user.role === Role.NONE) unauthorized();
+    if (session.user.role !== Role.ADMIN) forbidden();
 
     const memberId = formData?.get('memberId') as string | undefined;
     const amount = parseNumber(formData?.get('amount') as string | undefined);

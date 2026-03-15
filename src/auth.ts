@@ -4,6 +4,12 @@ import { genericOAuth, keycloak } from 'better-auth/plugins';
 
 const CLIENT_ID = process.env.KEYCLOAK_CLIENT_ID ?? 'pmty-member-site';
 
+export enum Role {
+    ADMIN = 'ADMIN',
+    MEMBER = 'MEMBER',
+    NONE = 'NONE',
+}
+
 export const auth = betterAuth({
     plugins: [
         genericOAuth({
@@ -27,9 +33,9 @@ export const auth = betterAuth({
     user: {
         additionalFields: {
             role: {
-                type: ['ADMIN', 'MEMBER', 'NONE'],
+                type: [Role.ADMIN, Role.MEMBER, Role.NONE],
                 required: true,
-                defaultValue: 'NONE',
+                defaultValue: Role.NONE,
                 input: false,
             },
         },
@@ -39,12 +45,12 @@ export const auth = betterAuth({
 interface ProfileWithRoles {
     resource_access?: {
         [CLIENT_ID]?: {
-            roles?: ('ADMIN' | 'MEMBER')[];
+            roles?: Role[];
         };
     };
 }
 
-const parseRole = (profile: ProfileWithRoles): 'ADMIN' | 'MEMBER' | 'NONE' => {
+const parseRole = (profile: ProfileWithRoles): Role => {
     const roles = profile?.resource_access?.[CLIENT_ID]?.roles ?? [];
-    return roles.indexOf('ADMIN') !== -1 ? 'ADMIN' : roles.indexOf('MEMBER') !== -1 ? 'MEMBER' : 'NONE';
+    return roles.indexOf(Role.ADMIN) !== -1 ? Role.ADMIN : roles.indexOf(Role.MEMBER) !== -1 ? Role.MEMBER : Role.NONE;
 };
