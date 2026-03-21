@@ -10,6 +10,6 @@ Aseta tämän jälkeen puuttuvat tiedot.
 
 Devaus:
 
-```
+```bash
 yarn dev
 ```

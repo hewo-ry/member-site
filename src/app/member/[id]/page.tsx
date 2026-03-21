@@ -2,7 +2,9 @@ import { headers } from 'next/headers';
 import { forbidden, notFound, unauthorized } from 'next/navigation';
 
 import { Role, auth } from '@/auth';
+import BackButton from '@/components/back-button';
 import FeeTable from '@/components/fee-table';
+import StatusPage from '@/components/status-page';
 import { getAssociationMemberById } from '@/lib/association';
 
 interface Props {
@@ -26,16 +28,52 @@ const Page = async ({ params }: Props) => {
     if (error) console.error(error);
 
     return member ? (
-        <div>
-            <h1>Perustiedot</h1>
-            <span>Nimi: {member.person.fullName}</span>
-            <span>Sähköposti: {member.person.email}</span>
-            <span>Tyyppi: {member.type}</span>
-            <h2>Maksut</h2>
-            <FeeTable hideFeeActions={session.user.role !== Role.ADMIN} memberId={member.id} fees={member.fees} />
+        <div className='space-y-6'>
+            <div className='action-row'>
+                <BackButton fallbackHref='/member' />
+            </div>
+            <section className='section'>
+                <h2 className='text-xl font-semibold sm:text-2xl'>Perustiedot</h2>
+                <dl className='mt-4 grid gap-3 sm:grid-cols-2'>
+                    <div className='card'>
+                        <dt className='field-label'>Nimi</dt>
+                        <dd>{member.person.fullName}</dd>
+                    </div>
+                    <div className='card'>
+                        <dt className='field-label'>Sähköposti</dt>
+                        <dd>{member.person.email}</dd>
+                    </div>
+                    <div className='card sm:col-span-2'>
+                        <dt className='field-label'>Tyyppi</dt>
+                        <dd>{member.type}</dd>
+                    </div>
+                </dl>
+            </section>
+
+            <section className='section'>
+                <h2 className='text-xl font-semibold sm:text-2xl'>Maksut</h2>
+                <p className='mt-2 text-sm text-[var(--color-text-muted)]'>
+                    Lisää tai poista jäsenmaksuja tarvittaessa.
+                </p>
+                <div className='mt-5'>
+                    <FeeTable
+                        hideFeeActions={session.user.role !== Role.ADMIN}
+                        memberId={member.id}
+                        fees={member.fees}
+                    />
+                </div>
+            </section>
         </div>
     ) : (
-        <span>VIRHE</span>
+        <StatusPage
+            shell={false}
+            title='Virhe tietojen latauksessa'
+            body='Jäsenen tietojen lataus epäonnistui. Yritä uudelleen hetken kuluttua.'
+        >
+            <div className='action-row'>
+                <BackButton className='btn btn-primary' fallbackHref='/member' label='Palaa jäsenlistaan' />
+            </div>
+        </StatusPage>
     );
 };
 
