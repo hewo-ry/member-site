@@ -232,4 +232,63 @@
         background-color: var(--color-surface-soft);
         padding: 1rem;
     }
+
+    @media (max-width: 639px) {
+        .page-shell {
+            width: calc(100% - 1rem);
+            padding-block: 1.5rem;
+        }
+
+        .section {
+            margin-top: 1rem;
+            padding: 1rem;
+        }
+
+        .hero {
+            padding: 1.25rem;
+        }
+
+        .card {
+            padding: 1rem;
+        }
+
+        .btn {
+            min-height: 2.75rem;
+            padding: 0.7rem 1rem;
+            font-size: 1rem;
+        }
+
+        .input {
+            font-size: 1rem;
+        }
+
+        .field-label,
+        .helper-text,
+        .error-text,
+        .success-text {
+            font-size: 0.9375rem;
+        }
+
+        .table-shell {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table {
+            min-width: 32rem;
+        }
+
+        .table th,
+        .table td {
+            padding: 0.7rem;
+            font-size: 0.9rem;
+        }
+
+        .action-row {
+            gap: 0.6rem;
+        }
+
+        .action-row .btn {
+            width: 100%;
+        }
+    }
 }
