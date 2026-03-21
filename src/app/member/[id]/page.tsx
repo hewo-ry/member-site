@@ -30,7 +30,7 @@ const Page = async ({ params }: Props) => {
     return member ? (
         <div className='space-y-6'>
             <section className='section'>
-                <h2 className='text-2xl font-semibold'>Perustiedot</h2>
+                <h2 className='text-xl font-semibold sm:text-2xl'>Perustiedot</h2>
                 <dl className='mt-4 grid gap-3 sm:grid-cols-2'>
                     <div className='card'>
                         <dt className='field-label'>Nimi</dt>
@@ -48,7 +48,7 @@ const Page = async ({ params }: Props) => {
             </section>
 
             <section className='section'>
-                <h2 className='text-2xl font-semibold'>Maksut</h2>
+                <h2 className='text-xl font-semibold sm:text-2xl'>Maksut</h2>
                 <p className='mt-2 text-sm text-[var(--color-text-muted)]'>
                     Lisää tai poista jäsenmaksuja tarvittaessa.
                 </p>

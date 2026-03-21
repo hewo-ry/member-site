@@ -9,7 +9,7 @@ const Layout = ({
         <header className='mb-6 flex flex-col gap-3 border-b border-[var(--color-border)] pb-4 sm:flex-row sm:items-center sm:justify-between'>
             <div>
                 <p className='text-sm text-[var(--color-text-muted)]'>Jäsenhallinta</p>
-                <h1 className='text-2xl font-semibold'>Jäsensivusto</h1>
+                <h1 className='text-xl font-semibold sm:text-2xl'>Jäsensivusto</h1>
             </div>
             <SignOutButton />
         </header>

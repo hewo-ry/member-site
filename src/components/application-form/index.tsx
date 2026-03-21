@@ -17,7 +17,7 @@ const ApplicationForm = () => {
     // TODO: preferredFirstName, preferredLastName
 
     return state.state !== ApplicationFormStateState.OPTIRE_SUCCESS ? (
-        <form action={formAction} className='mx-auto grid max-w-2xl gap-5'>
+        <form action={formAction} className='mx-auto grid w-full max-w-2xl gap-4 sm:gap-5'>
             <div>
                 <label className='field-label' htmlFor='firstName'>
                     Etunimi
@@ -59,7 +59,7 @@ const ApplicationForm = () => {
                 />
                 {'errors' in state && state.errors?.email && <p className='error-text'>{state.errors.email}</p>}
             </div>
-            <button className='btn btn-primary w-fit' disabled={isPending}>
+            <button className='btn btn-primary w-full sm:w-fit' disabled={isPending}>
                 {isPending ? 'Lähetetään...' : 'Lähetä hakemus'}
             </button>
             {state.state === ApplicationFormStateState.OPTIRE_FAILED && (

@@ -28,7 +28,7 @@ const FeeForm = ({ memberId }: Props) => {
     }, [router, state.state, timestamp]);
 
     return (
-        <form action={formAction} className='card-soft grid gap-4'>
+        <form action={formAction} className='card-soft grid gap-3 sm:gap-4'>
             <input type='hidden' name='memberId' value={memberId} />
             <div className='grid gap-4 sm:grid-cols-2'>
                 <div>
@@ -64,7 +64,7 @@ const FeeForm = ({ memberId }: Props) => {
                     {'errors' in state && state.errors?.year && <p className='error-text'>{state.errors.year}</p>}
                 </div>
             </div>
-            <button className='btn btn-secondary w-fit' disabled={isPending}>
+            <button className='btn btn-secondary w-full sm:w-fit' disabled={isPending}>
                 {isPending ? 'Tallennetaan...' : 'Lisää maksu'}
             </button>
             {state.state === FeeFormStateState.OPTIRE_FAILED && (
