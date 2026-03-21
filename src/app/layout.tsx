@@ -1,5 +1,6 @@
 // TODO: metadata
 // TODO: front
+import NavigationTracker from '@/components/navigation-tracker';
 import '@/styles/globals.css';
 import '@/theme/active.css';
 
@@ -9,7 +10,10 @@ const RootLayout = ({
     children: React.ReactNode;
 }>) => (
     <html lang='fi'>
-        <body className='antialiased'>{children}</body>
+        <body className='antialiased'>
+            <NavigationTracker />
+            {children}
+        </body>
     </html>
 );
 
