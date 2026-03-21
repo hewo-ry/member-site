@@ -1,8 +1,8 @@
 import { headers } from 'next/headers';
-import Link from 'next/link';
 import { forbidden, notFound, unauthorized } from 'next/navigation';
 
 import { Role, auth } from '@/auth';
+import BackButton from '@/components/back-button';
 import FeeTable from '@/components/fee-table';
 import StatusPage from '@/components/status-page';
 import { getAssociationMemberById } from '@/lib/association';
@@ -29,6 +29,9 @@ const Page = async ({ params }: Props) => {
 
     return member ? (
         <div className='space-y-6'>
+            <div className='action-row'>
+                <BackButton fallbackHref='/member' />
+            </div>
             <section className='section'>
                 <h2 className='text-xl font-semibold sm:text-2xl'>Perustiedot</h2>
                 <dl className='mt-4 grid gap-3 sm:grid-cols-2'>
@@ -68,9 +71,7 @@ const Page = async ({ params }: Props) => {
             body='Jäsenen tietojen lataus epäonnistui. Yritä uudelleen hetken kuluttua.'
         >
             <div className='action-row'>
-                <Link className='btn btn-primary' href='/member'>
-                    Palaa jäsenlistaan
-                </Link>
+                <BackButton className='btn btn-primary' fallbackHref='/member' label='Palaa jäsenlistaan' />
             </div>
         </StatusPage>
     );

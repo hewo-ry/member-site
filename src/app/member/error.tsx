@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 
+import BackButton from '@/components/back-button';
 import StatusPage from '@/components/status-page';
 
 interface Props {
@@ -16,22 +17,28 @@ const MemberErrorPage = ({ error, reset }: Props) => {
     }, [error]);
 
     return (
-        <StatusPage
-            title='Jäsensivulla tapahtui virhe'
-            body='Tietojen lataus epäonnistui. Yritä uudelleen tai palaa jäsensivuston etusivulle.'
-        >
-            <div className='action-row'>
-                <button className='btn btn-primary' onClick={reset} type='button'>
-                    Yritä uudelleen
-                </button>
-                <Link className='btn btn-secondary' href='/member'>
-                    Jäsenlistaan
-                </Link>
-                <Link className='btn btn-secondary' href='/'>
-                    Etusivulle
-                </Link>
+        <>
+            <div className='action-row mb-6'>
+                <BackButton fallbackHref='/member' label='Palaa takaisin' />
             </div>
-        </StatusPage>
+            <StatusPage
+                title='Jäsensivulla tapahtui virhe'
+                body='Tietojen lataus epäonnistui. Yritä uudelleen tai palaa jäsensivuston etusivulle.'
+                shell={false}
+            >
+                <div className='action-row'>
+                    <button className='btn btn-primary' onClick={reset} type='button'>
+                        Yritä uudelleen
+                    </button>
+                    <Link className='btn btn-secondary' href='/member'>
+                        Jäsenlistaan
+                    </Link>
+                    <Link className='btn btn-secondary' href='/'>
+                        Etusivulle
+                    </Link>
+                </div>
+            </StatusPage>
+        </>
     );
 };
 

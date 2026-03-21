@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 
+import BackButton from '@/components/back-button';
 import StatusPage from '@/components/status-page';
 
 interface Props {
@@ -16,20 +17,26 @@ const ErrorPage = ({ error, reset }: Props) => {
     }, [error]);
 
     return (
-        <StatusPage
-            title='Jotain meni pieleen'
-            body='Sivun latauksessa tapahtui odottamaton virhe. Yritä uudelleen hetken kuluttua.'
-        >
-            <p className='error-text'>Virhe jatkuu? Palaa etusivulle tai yritä uudelleen.</p>
-            <div className='action-row'>
-                <button className='btn btn-primary' onClick={reset} type='button'>
-                    Yritä uudelleen
-                </button>
-                <Link className='btn btn-secondary' href='/'>
-                    Siirry etusivulle
-                </Link>
+        <div className='page-shell'>
+            <div className='action-row mb-6'>
+                <BackButton fallbackHref='/' />
             </div>
-        </StatusPage>
+            <StatusPage
+                title='Jotain meni pieleen'
+                body='Sivun latauksessa tapahtui odottamaton virhe. Yritä uudelleen hetken kuluttua.'
+                shell={false}
+            >
+                <p className='error-text'>Virhe jatkuu? Palaa etusivulle tai yritä uudelleen.</p>
+                <div className='action-row'>
+                    <button className='btn btn-primary' onClick={reset} type='button'>
+                        Yritä uudelleen
+                    </button>
+                    <Link className='btn btn-secondary' href='/'>
+                        Siirry etusivulle
+                    </Link>
+                </div>
+            </StatusPage>
+        </div>
     );
 };
 
