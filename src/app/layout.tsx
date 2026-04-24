@@ -1,5 +1,7 @@
 // TODO: metadata
 // TODO: front
+import { Suspense } from 'react';
+
 import NavigationTracker from '@/components/navigation-tracker';
 import '@/styles/globals.css';
 import '@/theme/active.css';
@@ -11,7 +13,9 @@ const RootLayout = ({
 }>) => (
     <html lang='fi'>
         <body className='antialiased'>
-            <NavigationTracker />
+            <Suspense fallback={null}>
+                <NavigationTracker />
+            </Suspense>
             {children}
         </body>
     </html>
