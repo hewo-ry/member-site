@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
         authInterrupts: true,
     },
     reactCompiler: true,
+    env: {
+        ORG_THEME: themeFileName,
+    },
     turbopack: {
         resolveAlias: {
             '@/theme/active.css': `./src/theme/${themeFileName}.css`,

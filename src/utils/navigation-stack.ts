@@ -1,7 +1,15 @@
 const NAVIGATION_STACK_KEY = 'member-site:navigation-stack';
 
 export const readStack = () => {
-    const value = sessionStorage.getItem(NAVIGATION_STACK_KEY);
+    if (typeof window === 'undefined') return [] as string[];
+
+    let value: string | null = null;
+    try {
+        value = window.sessionStorage.getItem(NAVIGATION_STACK_KEY);
+    } catch {
+        return [];
+    }
+
     if (!value) return [] as string[];
 
     try {
@@ -14,8 +22,14 @@ export const readStack = () => {
 };
 
 export const writeStack = (stack: string[], maxSize?: number) => {
+    if (typeof window === 'undefined') return;
+
     const sliced = maxSize ? stack.slice(-maxSize) : stack;
-    sessionStorage.setItem(NAVIGATION_STACK_KEY, JSON.stringify(sliced));
+    try {
+        window.sessionStorage.setItem(NAVIGATION_STACK_KEY, JSON.stringify(sliced));
+    } catch {
+        // Ignore storage write failures (blocked storage, quota exceeded, etc.)
+    }
 };
 
 export { NAVIGATION_STACK_KEY };

@@ -2,9 +2,9 @@ import hewoContent from './hewo';
 import pmtyContent from './pmty';
 import { OrganizationContent, OrganizationKey } from './types';
 
-const themeEnvValue = process.env.ORG_THEME?.toLowerCase();
+const compileTimeTheme = process.env.ORG_THEME?.toLowerCase();
 
-const activeOrganization: OrganizationKey = themeEnvValue === 'pmty' ? 'pmty' : 'hewo';
+const activeOrganization: OrganizationKey = compileTimeTheme === 'pmty' ? 'pmty' : 'hewo';
 
 const contentByOrganization: Record<OrganizationKey, OrganizationContent> = {
     hewo: hewoContent,

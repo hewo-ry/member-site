@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect } from 'react';
 
 import BackButton from '@/components/back-button';
 import StatusPage from '@/components/status-page';
@@ -12,10 +11,6 @@ interface Props {
 }
 
 const MemberErrorPage = ({ error, reset }: Props) => {
-    useEffect(() => {
-        console.error(error);
-    }, [error]);
-
     return (
         <>
             <div className='action-row mb-6'>

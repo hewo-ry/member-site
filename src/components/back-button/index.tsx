@@ -11,6 +11,18 @@ interface Props {
     replaceFallback?: boolean;
 }
 
+const sanitizeInternalPath = (path: string): string | null => {
+    try {
+        const url = new URL(path, window.location.origin);
+        if (url.origin !== window.location.origin) return null;
+        if (!url.pathname.startsWith('/')) return null;
+        if (url.pathname.startsWith('/api/auth/')) return null;
+        return `${url.pathname}${url.search}${url.hash}`;
+    } catch {
+        return null;
+    }
+};
+
 const BackButton = ({
     fallbackHref,
     label = 'Palaa takaisin',
@@ -44,8 +56,10 @@ const BackButton = ({
         const previousPath = stack.at(-1);
         writeStack(stack);
 
-        if (previousPath && previousPath !== currentPath && !previousPath.startsWith('/api/auth/')) {
-            router.push(previousPath);
+        const safePreviousPath = previousPath ? sanitizeInternalPath(previousPath) : null;
+
+        if (safePreviousPath && safePreviousPath !== currentPath) {
+            router.push(safePreviousPath);
             return;
         }
 
