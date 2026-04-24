@@ -12,24 +12,24 @@
         "postinstall": "next telemetry disable"
     },
     "dependencies": {
-        "better-auth": "^1.5.4",
-        "next": "16.2.3",
-        "react": "19.2.4",
-        "react-dom": "19.2.4"
+        "better-auth": "^1.6.6",
+        "next": "16.2.4",
+        "react": "19.2.5",
+        "react-dom": "19.2.5"
     },
     "devDependencies": {
         "@microsoft/eslint-formatter-sarif": "^3.1.0",
-        "@tailwindcss/postcss": "^4.1.11",
+        "@tailwindcss/postcss": "^4.2.4",
         "@trivago/prettier-plugin-sort-imports": "^6.0.2",
-        "@types/node": "^24.12.0",
+        "@types/node": "^24.12.2",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
         "babel-plugin-react-compiler": "1.0.0",
-        "eslint": "^10.0.3",
-        "eslint-config-next": "16.1.6",
-        "prettier": "^3.8.1",
-        "tailwindcss": "^4.1.11",
-        "typescript": "^5.9.3"
+        "eslint": "^10.2.1",
+        "eslint-config-next": "16.2.4",
+        "prettier": "^3.8.3",
+        "tailwindcss": "^4.2.4",
+        "typescript": "^6.0.3"
     },
-    "packageManager": "yarn@4.13.0"
+    "packageManager": "yarn@4.14.1"
 }
