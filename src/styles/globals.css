@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
 @layer base {
+
     html,
     body {
         min-height: 100%;
@@ -9,16 +10,12 @@
     body {
         margin: 0;
         background:
-            radial-gradient(
-                circle at top right,
+            radial-gradient(circle at top right,
                 color-mix(in srgb, var(--color-primary) 10%, transparent),
-                transparent 40%
-            ),
-            linear-gradient(
-                180deg,
+                transparent 40%),
+            linear-gradient(180deg,
                 var(--color-bg) 0%,
-                color-mix(in srgb, var(--color-bg) 82%, var(--color-surface)) 100%
-            );
+                color-mix(in srgb, var(--color-bg) 82%, var(--color-surface)) 100%);
         color: var(--color-text);
         font-family: var(--font-sans);
         text-rendering: optimizeLegibility;
@@ -50,11 +47,9 @@
         border: 1px solid var(--color-border);
         border-radius: var(--radius-lg);
         background:
-            linear-gradient(
-                135deg,
+            linear-gradient(135deg,
                 color-mix(in srgb, var(--color-primary) 10%, var(--color-surface)) 0%,
-                var(--color-surface) 70%
-            ),
+                var(--color-surface) 70%),
             var(--color-surface);
         padding: 2rem;
         box-shadow: var(--shadow-md);
@@ -269,6 +264,67 @@
             font-size: 0.9375rem;
         }
 
+        .table-mobile-list {
+            min-width: 0;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .table-mobile-list thead {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+            white-space: nowrap;
+        }
+
+        .table-mobile-list tbody {
+            display: grid;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .table-mobile-list tr {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            background-color: var(--color-surface-soft);
+            padding: 0.5rem;
+            gap: 0.25rem;
+        }
+
+        .table-mobile-list td {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.1rem;
+            border-bottom: 0;
+            padding: 0;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .table-mobile-list td::before {
+            content: attr(data-label);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--color-text-muted);
+        }
+
+        .table-mobile-list td:last-child::before {
+            content: attr(data-label);
+        }
+
         .table-shell {
             -webkit-overflow-scrolling: touch;
         }
@@ -277,10 +333,73 @@
             min-width: 32rem;
         }
 
+        .table-mobile-list {
+            min-width: auto;
+        }
+
         .table th,
         .table td {
             padding: 0.7rem;
             font-size: 0.9rem;
+        }
+
+        .table-mobile-cards {
+            min-width: 0;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .table-mobile-cards thead {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+            white-space: nowrap;
+        }
+
+        .table-mobile-cards tbody {
+            display: grid;
+            gap: 0.75rem;
+            padding: 0.75rem;
+        }
+
+        .table-mobile-cards tr {
+            display: block;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            background-color: var(--color-surface-soft);
+            overflow: hidden;
+        }
+
+        .table-mobile-cards td {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.2rem;
+            border-bottom: 1px solid var(--color-border);
+            padding: 0.7rem 0.8rem;
+        }
+
+        .table-mobile-cards td::before {
+            content: attr(data-label);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--color-text-muted);
+        }
+
+        .table-mobile-cards tr td:last-child {
+            border-bottom: 0;
+        }
+
+        .table-mobile-cards .btn {
+            width: 100%;
+            min-height: 2.75rem;
         }
 
         .action-row {

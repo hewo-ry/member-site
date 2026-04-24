@@ -17,7 +17,7 @@ const ApplicationForm = () => {
     // TODO: preferredFirstName, preferredLastName
 
     return state.state !== ApplicationFormStateState.OPTIRE_SUCCESS ? (
-        <form action={formAction} className='mx-auto grid w-full max-w-2xl gap-4 sm:gap-5'>
+        <form action={formAction} className='grid w-full gap-4 sm:gap-5'>
             <div>
                 <label className='field-label' htmlFor='firstName'>
                     Etunimi

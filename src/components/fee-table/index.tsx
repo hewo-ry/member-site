@@ -10,12 +10,13 @@ interface Props {
 }
 
 const currencyFormatter = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'EUR' });
-const dateTimeFormatter = new Intl.DateTimeFormat();
+const dateRangeFormatter = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' });
+const createdAtFormatter = new Intl.DateTimeFormat(undefined, { dateStyle: 'short', timeStyle: 'short' });
 
 const FeeTable = ({ hideFeeActions, fees, memberId }: Props) => (
     <>
         <div className='table-shell'>
-            <table className='table'>
+            <table className='table table-mobile-cards'>
                 <thead>
                     <tr>
                         <th>Määrä</th>
@@ -27,11 +28,13 @@ const FeeTable = ({ hideFeeActions, fees, memberId }: Props) => (
                 <tbody>
                     {fees.map(({ id, amount, seasonStartTime, seasonEndTime, created }) => (
                         <tr key={id}>
-                            <td>{currencyFormatter.format(amount)}</td>
-                            <td>{dateTimeFormatter.formatRange(new Date(seasonStartTime), new Date(seasonEndTime))}</td>
-                            <td>{new Date(created).toLocaleString()}</td>
+                            <td data-label='Määrä'>{currencyFormatter.format(amount)}</td>
+                            <td data-label='Kausi'>
+                                {dateRangeFormatter.formatRange(new Date(seasonStartTime), new Date(seasonEndTime))}
+                            </td>
+                            <td data-label='Kirjattu'>{createdAtFormatter.format(new Date(created))}</td>
                             {!hideFeeActions && (
-                                <td>
+                                <td data-label='Toiminnot'>
                                     <DeleteButton memberId={memberId} feeId={id} />
                                 </td>
                             )}
