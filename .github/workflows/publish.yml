@@ -1,0 +1,47 @@
+---
+name: Publish new version
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: Select version
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  bump-version:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: yarn
+          cache-dependency-path: yarn.lock
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+
+      - name: Bump version and tag
+        run: npm version ${{ github.event.inputs.bump_type }}
+
+      - name: Push changes
+        run: git push origin main --follow-tags
