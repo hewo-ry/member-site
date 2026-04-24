@@ -145,12 +145,6 @@
         font-weight: 600;
     }
 
-    .helper-text {
-        margin-top: 0.35rem;
-        font-size: 0.875rem;
-        color: var(--color-text-muted);
-    }
-
     .error-text {
         margin-top: 0.35rem;
         font-size: 0.875rem;
@@ -258,7 +252,6 @@
         }
 
         .field-label,
-        .helper-text,
         .error-text,
         .success-text {
             font-size: 0.9375rem;
