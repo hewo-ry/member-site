@@ -2,11 +2,8 @@ name: Build and push docker image
 
 on:
   push:
-    branches:
-      - main
-
-  # Allows to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    tags:
+      - "v*"
 
 env:
   REGISTRY: ghcr.io
@@ -45,7 +42,8 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.organization }}
           tags: |
-            latest
+            type=raw,value=latest
+            type=ref,event=tag
 
       - name: Build and push Docker image
         id: build-and-push
