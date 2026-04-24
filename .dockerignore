@@ -1,0 +1,15 @@
+.git/
+.github/
+.next/
+.vscode/
+node_modules
+
+.dockerignore
+.editorconfig
+.env*
+.gitignore
+.prettierignore
+.prettierrc
+Dockerfile
+eslint.config.mts
+README.md

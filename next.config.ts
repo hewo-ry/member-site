@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
     experimental: {
         authInterrupts: true,
     },
+
+    output: 'standalone',
+
     reactCompiler: true,
     env: {
         ORG_THEME: themeFileName,
