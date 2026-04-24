@@ -56,7 +56,11 @@ const Page = async ({ params }: Props) => {
                     Lisää tai poista jäsenmaksuja tarvittaessa.
                 </p>
                 <div className='mt-5'>
-                    <FeeTable hideFeeActions={session.user.role !== Role.ADMIN} memberId={member.id} fees={member.fees} />
+                    <FeeTable
+                        hideFeeActions={session.user.role !== Role.ADMIN}
+                        memberId={member.id}
+                        fees={member.fees}
+                    />
                 </div>
             </section>
         </div>

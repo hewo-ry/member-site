@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 
 @layer base {
-
     html,
     body {
         min-height: 100%;
@@ -10,12 +9,16 @@
     body {
         margin: 0;
         background:
-            radial-gradient(circle at top right,
+            radial-gradient(
+                circle at top right,
                 color-mix(in srgb, var(--color-primary) 10%, transparent),
-                transparent 40%),
-            linear-gradient(180deg,
+                transparent 40%
+            ),
+            linear-gradient(
+                180deg,
                 var(--color-bg) 0%,
-                color-mix(in srgb, var(--color-bg) 82%, var(--color-surface)) 100%);
+                color-mix(in srgb, var(--color-bg) 82%, var(--color-surface)) 100%
+            );
         color: var(--color-text);
         font-family: var(--font-sans);
         text-rendering: optimizeLegibility;
@@ -47,9 +50,11 @@
         border: 1px solid var(--color-border);
         border-radius: var(--radius-lg);
         background:
-            linear-gradient(135deg,
+            linear-gradient(
+                135deg,
                 color-mix(in srgb, var(--color-primary) 10%, var(--color-surface)) 0%,
-                var(--color-surface) 70%),
+                var(--color-surface) 70%
+            ),
             var(--color-surface);
         padding: 2rem;
         box-shadow: var(--shadow-md);
