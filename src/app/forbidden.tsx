@@ -1,12 +1,14 @@
 import Link from 'next/link';
 
 import BackButton from '@/components/back-button';
+import SignOutButton from '@/components/sign-out-button';
 import StatusPage from '@/components/status-page';
 
 const ForbiddenPage = () => (
     <div className='page-shell'>
         <div className='action-row mb-6'>
             <BackButton fallbackHref='/' />
+            <SignOutButton />
         </div>
         <StatusPage
             code='403'
