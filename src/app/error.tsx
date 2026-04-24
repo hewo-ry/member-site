@@ -6,11 +6,10 @@ import BackButton from '@/components/back-button';
 import StatusPage from '@/components/status-page';
 
 interface Props {
-    error: Error & { digest?: string };
     reset: () => void;
 }
 
-const ErrorPage = ({ error, reset }: Props) => {
+const ErrorPage = ({ reset }: Props) => {
     return (
         <div className='page-shell'>
             <div className='action-row mb-6'>
