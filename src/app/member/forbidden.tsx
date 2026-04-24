@@ -3,8 +3,8 @@ import Link from 'next/link';
 import BackButton from '@/components/back-button';
 import StatusPage from '@/components/status-page';
 
-const ForbiddenPage = () => (
-    <div className='page-shell'>
+const MemberForbiddenPage = () => (
+    <>
         <div className='action-row mb-6'>
             <BackButton fallbackHref='/' />
         </div>
@@ -22,7 +22,7 @@ const ForbiddenPage = () => (
                 </Link>
             </div>
         </StatusPage>
-    </div>
+    </>
 );
 
-export default ForbiddenPage;
+export default MemberForbiddenPage;
