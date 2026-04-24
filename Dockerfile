@@ -26,7 +26,7 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
-COPY --from=build /app/public ./public
+#COPY --from=build /app/public ./public
 COPY --from=build --chown=nonroot:nonroot /app/.next/standalone ./
 COPY --from=build --chown=nonroot:nonroot /app/.next/static ./.next/static
 
