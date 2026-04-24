@@ -12,7 +12,6 @@ const UnauthorizedPage = () => (
             code='401'
             title='Kirjautuminen vaaditaan'
             body='Tämä sivu vaatii kirjautumisen. Kirjaudu sisään ja yritä uudelleen.'
-            shell={false}
         >
             <div className='action-row'>
                 <Link className='btn btn-primary' href='/'>

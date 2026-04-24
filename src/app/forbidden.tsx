@@ -12,7 +12,6 @@ const ForbiddenPage = () => (
             code='403'
             title='Pääsy estetty'
             body='Sinulla ei ole oikeuksia tähän näkymään. Jos uskot tämän olevan virhe, ota yhteyttä ylläpitoon.'
-            shell={false}
         >
             <div className='action-row'>
                 <Link className='btn btn-secondary' href='/member'>

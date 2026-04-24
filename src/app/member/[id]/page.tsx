@@ -62,7 +62,6 @@ const Page = async ({ params }: Props) => {
         </div>
     ) : (
         <StatusPage
-            shell={false}
             title='Virhe tietojen latauksessa'
             body='Jäsenen tietojen lataus epäonnistui. Yritä uudelleen hetken kuluttua.'
         >

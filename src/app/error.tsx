@@ -24,7 +24,6 @@ const ErrorPage = ({ error, reset }: Props) => {
             <StatusPage
                 title='Jotain meni pieleen'
                 body='Sivun latauksessa tapahtui odottamaton virhe. Yritä uudelleen hetken kuluttua.'
-                shell={false}
             >
                 <p className='error-text'>Virhe jatkuu? Palaa etusivulle tai yritä uudelleen.</p>
                 <div className='action-row'>

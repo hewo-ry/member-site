@@ -24,7 +24,6 @@ const MemberErrorPage = ({ error, reset }: Props) => {
             <StatusPage
                 title='Jäsensivulla tapahtui virhe'
                 body='Tietojen lataus epäonnistui. Yritä uudelleen tai palaa jäsensivuston etusivulle.'
-                shell={false}
             >
                 <div className='action-row'>
                     <button className='btn btn-primary' onClick={reset} type='button'>

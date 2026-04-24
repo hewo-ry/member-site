@@ -3,11 +3,10 @@ interface Props {
     title: string;
     body: string;
     variant?: 'section' | 'hero';
-    shell?: boolean;
     children?: React.ReactNode;
 }
 
-const StatusPage = ({ code, title, body, variant = 'section', shell = true, children }: Props) => {
+const StatusPage = ({ code, title, body, variant = 'section', children }: Props) => {
     const content = (
         <section className={`${variant} space-y-3 sm:space-y-4`}>
             {code && <p className='status-code'>{code}</p>}
@@ -17,7 +16,7 @@ const StatusPage = ({ code, title, body, variant = 'section', shell = true, chil
         </section>
     );
 
-    return shell ? <div className='page-shell'>{content}</div> : content;
+    return content;
 };
 
 export default StatusPage;

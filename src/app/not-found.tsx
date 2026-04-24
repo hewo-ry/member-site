@@ -13,7 +13,6 @@ const NotFoundPage = () => (
             variant='hero'
             title='Sivua ei löytynyt'
             body='Haettua sivua ei voitu löytää. Tarkista osoite tai palaa etusivulle.'
-            shell={false}
         >
             <div className='action-row'>
                 <Link className='btn btn-primary' href='/'>

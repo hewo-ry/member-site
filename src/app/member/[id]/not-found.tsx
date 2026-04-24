@@ -10,7 +10,6 @@ const MemberNotFoundPage = () => (
         </div>
         <StatusPage
             code='404'
-            shell={false}
             title='Jäsentä ei löytynyt'
             body='Pyydetyllä tunnisteella ei löytynyt jäsentä. Tarkista tunniste tai palaa jäsenlistaan.'
         >
