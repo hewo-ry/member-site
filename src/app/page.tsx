@@ -2,18 +2,52 @@ import Link from 'next/link';
 
 import SignInButton from '@/components/sign-in-button';
 import { getAssociationById } from '@/lib/association';
+import { getOrganizationContent } from '@/lib/content';
 
 const Page = async () => {
     const { data: association, error } = await getAssociationById();
+    const content = getOrganizationContent();
 
     // TODO: handle error
     if (error) console.error(error);
 
     return (
-        <div>
-            <h1>{association?.name}</h1>
-            <Link href='/application'>Hae jäseneksi</Link>
-            <SignInButton />
+        <div className='page-shell'>
+            <section className='hero'>
+                <p className='text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]'>
+                    {content.shortName}
+                </p>
+                <h1 className='mt-3 text-2xl font-semibold leading-tight sm:text-3xl md:text-4xl'>
+                    {association?.name ?? content.fullName}
+                </h1>
+                <p className='mt-4 max-w-2xl text-[1rem] text-[var(--color-text-muted)] sm:text-[1.04rem]'>
+                    {content.heroBody}
+                </p>
+                <div className='mt-6 flex flex-wrap gap-3'>
+                    <Link className='btn btn-primary' href='/application'>
+                        Hae jäseneksi
+                    </Link>
+                    <SignInButton />
+                </div>
+            </section>
+
+            <section className='section'>
+                <h2 className='text-xl font-semibold sm:text-2xl'>{content.aboutTitle}</h2>
+                <p className='mt-3 max-w-3xl text-[var(--color-text-muted)]'>{content.aboutBody}</p>
+            </section>
+
+            <section className='section'>
+                <h2 className='text-xl font-semibold sm:text-2xl'>{content.joinTitle}</h2>
+                <p className='mt-3 max-w-3xl text-[var(--color-text-muted)]'>{content.joinBody}</p>
+                <Link className='btn btn-secondary mt-5' href='/application'>
+                    Avaa jäsenhakemus
+                </Link>
+            </section>
+
+            <section className='section'>
+                <h2 className='text-xl font-semibold sm:text-2xl'>{content.contactTitle}</h2>
+                <p className='mt-3 max-w-3xl text-[var(--color-text-muted)]'>{content.contactBody}</p>
+            </section>
         </div>
     );
 };

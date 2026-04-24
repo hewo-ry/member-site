@@ -10,35 +10,44 @@ interface Props {
 }
 
 const currencyFormatter = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'EUR' });
-const dateTimeFormatter = new Intl.DateTimeFormat();
+const dateRangeFormatter = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' });
+const createdAtFormatter = new Intl.DateTimeFormat(undefined, { dateStyle: 'short', timeStyle: 'short' });
 
 const FeeTable = ({ hideFeeActions, fees, memberId }: Props) => (
     <>
-        <table>
-            <thead>
-                <tr>
-                    <th>Määrä</th>
-                    <th>Kausi</th>
-                    <th>Kirjattu</th>
-                    {!hideFeeActions && <th />}
-                </tr>
-            </thead>
-            <tbody>
-                {fees.map(({ id, amount, seasonStartTime, seasonEndTime, created }) => (
-                    <tr key={id}>
-                        <td>{currencyFormatter.format(amount)}</td>
-                        <td>{dateTimeFormatter.formatRange(new Date(seasonStartTime), new Date(seasonEndTime))}</td>
-                        <td>{new Date(created).toLocaleString()}</td>
-                        {!hideFeeActions && (
-                            <td>
-                                <DeleteButton memberId={memberId} feeId={id} />
-                            </td>
-                        )}
+        <div className='table-shell'>
+            <table className='table table-mobile-cards'>
+                <thead>
+                    <tr>
+                        <th>Määrä</th>
+                        <th>Kausi</th>
+                        <th>Kirjattu</th>
+                        {!hideFeeActions && <th aria-label='Toiminnot' />}
                     </tr>
-                ))}
-            </tbody>
-        </table>
-        {!hideFeeActions && <FeeForm memberId={memberId} />}
+                </thead>
+                <tbody>
+                    {fees.map(({ id, amount, seasonStartTime, seasonEndTime, created }) => (
+                        <tr key={id}>
+                            <td data-label='Määrä'>{currencyFormatter.format(amount)}</td>
+                            <td data-label='Kausi'>
+                                {dateRangeFormatter.formatRange(new Date(seasonStartTime), new Date(seasonEndTime))}
+                            </td>
+                            <td data-label='Kirjattu'>{createdAtFormatter.format(new Date(created))}</td>
+                            {!hideFeeActions && (
+                                <td data-label='Toiminnot'>
+                                    <DeleteButton memberId={memberId} feeId={id} />
+                                </td>
+                            )}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+        {!hideFeeActions && (
+            <div className='mt-4'>
+                <FeeForm memberId={memberId} />
+            </div>
+        )}
     </>
 );
 

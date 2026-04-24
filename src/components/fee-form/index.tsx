@@ -28,21 +28,51 @@ const FeeForm = ({ memberId }: Props) => {
     }, [router, state.state, timestamp]);
 
     return (
-        <form action={formAction}>
+        <form action={formAction} className='card-soft grid gap-3 sm:gap-4'>
             <input type='hidden' name='memberId' value={memberId} />
-            <div>
-                <input name='amount' placeholder='Määrä' defaultValue={state.fee.amount} />
-                {'errors' in state && state.errors?.amount && <span>{state.errors.amount}</span>}
+            <div className='grid gap-4 sm:grid-cols-2'>
+                <div>
+                    <label className='field-label' htmlFor='amount'>
+                        Määrä
+                    </label>
+                    <input
+                        className='input'
+                        id='amount'
+                        name='amount'
+                        type='number'
+                        inputMode='numeric'
+                        step='1'
+                        placeholder='Esim. 30'
+                        defaultValue={state.fee.amount}
+                    />
+                    {'errors' in state && state.errors?.amount && <p className='error-text'>{state.errors.amount}</p>}
+                </div>
+                <div>
+                    <label className='field-label' htmlFor='year'>
+                        Vuosi
+                    </label>
+                    <input
+                        className='input'
+                        id='year'
+                        name='year'
+                        type='number'
+                        inputMode='numeric'
+                        step='1'
+                        placeholder='Esim. 2026'
+                        defaultValue={state.fee.year}
+                    />
+                    {'errors' in state && state.errors?.year && <p className='error-text'>{state.errors.year}</p>}
+                </div>
             </div>
-            <div>
-                <input name='year' placeholder='Vuosi' defaultValue={state.fee.year} />
-                {'errors' in state && state.errors?.year && <span>{state.errors.year}</span>}
-            </div>
-            <button disabled={isPending}>Lähetä</button>
+            <button className='btn btn-secondary w-full sm:w-fit' disabled={isPending}>
+                {isPending ? 'Tallennetaan...' : 'Lisää maksu'}
+            </button>
             {state.state === FeeFormStateState.OPTIRE_FAILED && (
-                <span>Maksun lisääminen epäonnistui, yritä myöhemmin uudelleen</span>
+                <p className='error-text'>Maksun lisääminen epäonnistui, yritä myöhemmin uudelleen.</p>
             )}
-            {state.state === FeeFormStateState.OPTIRE_SUCCESS && !isPending && <span>Maksu lisätty!</span>}
+            {state.state === FeeFormStateState.OPTIRE_SUCCESS && !isPending && (
+                <p className='success-text'>Maksu lisätty.</p>
+            )}
         </form>
     );
 };
