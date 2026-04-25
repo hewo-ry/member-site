@@ -5,12 +5,6 @@ on:
     tags:
       - "v*"
 
-  workflow_call:
-    inputs:
-      tag:
-        required: true
-        type: string
-
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -52,7 +46,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.organization }}
           tags: |
             type=raw,value=latest
-            type=raw,value=${{ inputs.tag || github.ref_name }}
+            type=raw,value=${{ github.ref_name }}
 
       - name: Build and push Docker image
         id: build-and-push
