@@ -1,0 +1,51 @@
+name: Create tag for new release
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  create-version-tag:
+    if: github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'release-v')
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    outputs:
+      version: ${{ steps.create-tag.outputs.version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Create tag
+        id: create-tag
+        run: |
+          VERSION=v$(node -p "require('./package.json').version")
+
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          if ! git rev-parse $VERSION >/dev/null 2>&1; then
+            git tag $VERSION
+            git push origin $VERSION
+
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+          fi
+
+  trigger-docker-build:
+    needs: create-version-tag
+    if: needs.create-version-tag.outputs.version != ''
+
+    permissions:
+      contents: read
+      packages: write
+
+    uses: ./.github/workflows/docker-build-and-push.yml
+    with:
+      tag: ${{ needs.create-version-tag.outputs.version }}
