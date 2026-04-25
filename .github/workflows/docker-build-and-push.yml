@@ -32,6 +32,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6.0.2
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4.0.0
 
@@ -57,6 +60,7 @@ jobs:
         with:
           build-args: |
             ORG_THEME=${{ matrix.organization }}
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
