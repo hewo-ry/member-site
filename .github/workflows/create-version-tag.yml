@@ -20,6 +20,19 @@ jobs:
       version: ${{ steps.create-tag.outputs.version }}
 
     steps:
+      - uses: actions/create-github-app-token@v3.1.1
+        id: app-token
+        with:
+          client-id: ${{ secrets.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Get GitHub App User ID
+        id: github-app
+        run: |
+          echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
       - name: Checkout
         uses: actions/checkout@v6.0.2
 
@@ -28,24 +41,10 @@ jobs:
         run: |
           VERSION=v$(node -p "require('./package.json').version")
 
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
+          git config --global user.email '${{ steps.github-app.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
 
           if ! git rev-parse $VERSION >/dev/null 2>&1; then
             git tag $VERSION
             git push origin $VERSION
-
-            echo "version=$VERSION" >> $GITHUB_OUTPUT
           fi
-
-  trigger-docker-build:
-    needs: create-version-tag
-    if: needs.create-version-tag.outputs.version != ''
-
-    permissions:
-      contents: read
-      packages: write
-
-    uses: ./.github/workflows/docker-build-and-push.yml
-    with:
-      tag: ${{ needs.create-version-tag.outputs.version }}
