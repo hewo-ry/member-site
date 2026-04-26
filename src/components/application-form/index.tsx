@@ -45,6 +45,19 @@ const ApplicationForm = () => {
                 {'errors' in state && state.errors?.lastName && <p className='error-text'>{state.errors.lastName}</p>}
             </div>
             <div>
+                <label className='field-label' htmlFor='domicile'>
+                    Kotipaikka
+                </label>
+                <input
+                    className='input'
+                    id='domicile'
+                    name='domicile'
+                    placeholder='Kotipaikka (esim. Tampere tai Saksa)'
+                    defaultValue={state.application.domicile}
+                />
+                {'errors' in state && state.errors?.domicile && <p className='error-text'>{state.errors.domicile}</p>}
+            </div>
+            <div>
                 <label className='field-label' htmlFor='email'>
                     Sähköposti
                 </label>

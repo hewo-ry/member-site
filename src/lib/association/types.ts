@@ -14,6 +14,7 @@ export interface SimpleMember {
         lastName: string;
         preferredFirstName?: string;
         preferredLastName?: string;
+        domicile: string;
         email: string;
         readonly updated: string;
         readonly fullName: string;

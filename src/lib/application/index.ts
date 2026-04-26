@@ -10,6 +10,7 @@ export const submitApplication = async (
 ): Promise<ApplicationFormState> => {
     const firstName = (formData?.get('firstName') as string | undefined)?.trim();
     const lastName = (formData?.get('lastName') as string | undefined)?.trim();
+    const domicile = (formData?.get('domicile') as string | undefined)?.trim();
     const email = (formData?.get('email') as string | undefined)?.trim();
 
     const errors: Partial<Record<keyof Application, string>> = {};
@@ -20,6 +21,9 @@ export const submitApplication = async (
     if (!lastName || lastName.length == 0) errors['lastName'] = 'Sukunimi puuttuu!';
     else if ((lastName.length ?? 0) > 64) errors['lastName'] = 'Sukunimi saa olla enintään 64 merkkiä pitkä';
 
+    if (!domicile || domicile.length == 0) errors['domicile'] = 'Kotipaikka puuttuu!';
+    else if ((domicile.length ?? 0) > 64) errors['domicile'] = 'Kotipaikka saa olla enintään 64 merkkiä pitkä';
+
     if (!email || email.length == 0) errors['email'] = 'Sähköposti puuttuu!';
     else if (email.length > 255) errors['email'] = 'Sähköposti saa olla enintään 255 merkkiä pitkä';
     else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email))
@@ -28,10 +32,11 @@ export const submitApplication = async (
     const application: Partial<Application> = {
         firstName,
         lastName,
+        domicile,
         email,
     };
 
-    if (Object.keys(errors).length > 0 || !firstName || !lastName || !email)
+    if (Object.keys(errors).length > 0 || !firstName || !lastName || !domicile || !email)
         return {
             application,
             errors,
@@ -39,7 +44,7 @@ export const submitApplication = async (
         };
 
     const { error } = await createAssociationMember(undefined, {
-        person: { firstName, lastName, email },
+        person: { firstName, lastName, domicile, email },
         type: 'BASIC',
     });
 

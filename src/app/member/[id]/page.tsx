@@ -43,7 +43,11 @@ const Page = async ({ params }: Props) => {
                         <dt className='field-label'>Sähköposti</dt>
                         <dd>{member.person.email}</dd>
                     </div>
-                    <div className='card sm:col-span-2'>
+                    <div className='card'>
+                        <dt className='field-label'>Kotipaikka</dt>
+                        <dd>{member.person.domicile}</dd>
+                    </div>
+                    <div className='card'>
                         <dt className='field-label'>Tyyppi</dt>
                         <dd>{member.type}</dd>
                     </div>
