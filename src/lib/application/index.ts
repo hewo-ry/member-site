@@ -12,6 +12,7 @@ export const submitApplication = async (
     const lastName = (formData?.get('lastName') as string | undefined)?.trim();
     const domicile = (formData?.get('domicile') as string | undefined)?.trim();
     const email = (formData?.get('email') as string | undefined)?.trim();
+    const allowMemberLetter = formData?.get('allowMemberLetter') === 'on';
 
     const errors: Partial<Record<keyof Application, string>> = {};
 
@@ -34,6 +35,7 @@ export const submitApplication = async (
         lastName,
         domicile,
         email,
+        allowMemberLetter,
     };
 
     if (Object.keys(errors).length > 0 || !firstName || !lastName || !domicile || !email)
@@ -44,6 +46,7 @@ export const submitApplication = async (
         };
 
     const { error } = await createAssociationMember(undefined, {
+        allowMemberLetter,
         person: { firstName, lastName, domicile, email },
         type: 'BASIC',
     });

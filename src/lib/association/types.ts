@@ -6,24 +6,28 @@ export interface Association {
     owner: string;
 }
 
+interface Person {
+    firstName: string;
+    lastName: string;
+    preferredFirstName?: string;
+    preferredLastName?: string;
+    domicile: string;
+    email: string;
+    readonly updated: string;
+    readonly fullName: string;
+    readonly officialFullName: string;
+}
+
 export interface SimpleMember {
     readonly id: string;
     type: 'SPONSHORSHIP' | 'BASIC' | 'STUDENT';
-    person: {
-        firstName: string;
-        lastName: string;
-        preferredFirstName?: string;
-        preferredLastName?: string;
-        domicile: string;
-        email: string;
-        readonly updated: string;
-        readonly fullName: string;
-        readonly officialFullName: string;
-    };
+    person: Pick<Person, 'updated' | 'fullName' | 'officialFullName'>;
 }
 
 export interface Member extends SimpleMember {
+    allowMemberLetter: boolean;
     fees: Fee[];
+    person: Person;
 }
 
 export interface Fee {

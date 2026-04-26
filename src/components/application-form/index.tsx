@@ -72,6 +72,21 @@ const ApplicationForm = () => {
                 />
                 {'errors' in state && state.errors?.email && <p className='error-text'>{state.errors.email}</p>}
             </div>
+            <div className='flex items-center'>
+                <input
+                    className='w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft'
+                    id='allowMemberLetter'
+                    name='allowMemberLetter'
+                    type='checkbox'
+                    defaultChecked={state.application.allowMemberLetter}
+                />
+                <label className='select-none ms-2 text-sm font-medium text-heading' htmlFor='allowMemberLetter'>
+                    Minulle saa lähettää jäsenkirjeen
+                </label>
+                {'errors' in state && state.errors?.allowMemberLetter && (
+                    <p className='error-text'>{state.errors.allowMemberLetter}</p>
+                )}
+            </div>
             <button className='btn btn-primary w-full sm:w-fit' disabled={isPending}>
                 {isPending ? 'Lähetetään...' : 'Lähetä hakemus'}
             </button>

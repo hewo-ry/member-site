@@ -16,8 +16,8 @@ export const getAssociationById = async (id?: string): Promise<ApiResponse<Assoc
 
 export const createAssociationMember = async (
     id: string | undefined,
-    member: Omit<SimpleMember, 'id' | 'person'> & {
-        person: Omit<SimpleMember['person'], 'fullName' | 'officialFullName' | 'updated'>;
+    member: Omit<Member, 'fees' | 'id' | 'person'> & {
+        person: Omit<Member['person'], 'fullName' | 'officialFullName' | 'updated'>;
     },
 ): Promise<ApiResponse<SimpleMember>> =>
     (id ? Promise.resolve(id) : getAssociationId())

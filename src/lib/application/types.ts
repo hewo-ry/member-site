@@ -6,6 +6,7 @@ export interface Application {
     lastName: string;
     domicile: string;
     email: string;
+    allowMemberLetter: boolean;
 }
 
 interface InvalidApplicationFormState {

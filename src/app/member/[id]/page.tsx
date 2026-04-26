@@ -34,14 +34,10 @@ const Page = async ({ params }: Props) => {
             </div>
             <section className='section'>
                 <h2 className='text-xl font-semibold sm:text-2xl'>Perustiedot</h2>
-                <dl className='mt-4 grid gap-3 sm:grid-cols-2'>
+                <dl className='mt-4 grid gap-3 sm:grid-cols-3'>
                     <div className='card'>
                         <dt className='field-label'>Nimi</dt>
                         <dd>{member.person.fullName}</dd>
-                    </div>
-                    <div className='card'>
-                        <dt className='field-label'>Sähköposti</dt>
-                        <dd>{member.person.email}</dd>
                     </div>
                     <div className='card'>
                         <dt className='field-label'>Kotipaikka</dt>
@@ -50,6 +46,14 @@ const Page = async ({ params }: Props) => {
                     <div className='card'>
                         <dt className='field-label'>Tyyppi</dt>
                         <dd>{member.type}</dd>
+                    </div>
+                    <div className='card sm:col-span-2'>
+                        <dt className='field-label'>Sähköposti</dt>
+                        <dd>{member.person.email}</dd>
+                    </div>
+                    <div className='card'>
+                        <dt className='field-label'>Jäsenkirje</dt>
+                        <dd>{member.allowMemberLetter ? 'Kyllä' : 'Ei'}</dd>
                     </div>
                 </dl>
             </section>
