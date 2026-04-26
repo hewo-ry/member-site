@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
         authInterrupts: true,
     },
 
+    logging: {
+        fetches: {
+            fullUrl: true,
+        },
+    },
+
     output: 'standalone',
 
     reactCompiler: true,
