@@ -1,6 +1,7 @@
 'use server';
 
 import { createAssociationMember } from '../association';
+import { MemberType } from '../association/contants';
 import { ApplicationFormStateState } from './contants';
 import { Application, ApplicationFormState } from './types';
 
@@ -48,7 +49,7 @@ export const submitApplication = async (
     const { error } = await createAssociationMember(undefined, {
         allowMemberLetter,
         person: { firstName, lastName, domicile, email },
-        type: 'BASIC',
+        type: MemberType.UNPROCESSED,
     });
 
     return error

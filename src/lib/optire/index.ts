@@ -79,6 +79,23 @@ const api = (url?: string) => ({
             .then(handleResponse<T>)
             .catch((err) => handleErrorResponse(err, path)),
 
+    put: async <T>(path: string, body: unknown): Promise<ApiResponse<T>> =>
+        getOptireAccessToken()
+            .then((accessToken) => {
+                if (!url) throw new Error('Missing required env variable: OPTIRE_API_URL');
+                return fetch(`${url}/${path}`, {
+                    method: 'PUT',
+                    headers: {
+                        Accept: 'application/json',
+                        Authorization: `Bearer ${accessToken}`,
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify(body),
+                });
+            })
+            .then(handleResponse<T>)
+            .catch((err) => handleErrorResponse(err, path)),
+
     delete: async <T>(path: string): Promise<ApiResponse<T>> =>
         getOptireAccessToken()
             .then((accessToken) => {

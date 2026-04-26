@@ -1,3 +1,5 @@
+import { MemberType } from './contants';
+
 export interface Association {
     readonly id: string;
     name: string;
@@ -20,7 +22,7 @@ interface Person {
 
 export interface SimpleMember {
     readonly id: string;
-    type: 'SPONSHORSHIP' | 'BASIC' | 'STUDENT';
+    type: MemberType;
     person: Pick<Person, 'updated' | 'fullName' | 'officialFullName'>;
 }
 
