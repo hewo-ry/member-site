@@ -16,10 +16,10 @@ const ApplicationHandleButton = ({ memberId, type }: Props) => {
     const [{ success }, formAction, isPending] = useActionState(handleUnproseccedMember, { success: null });
 
     useEffect(() => {
-        if (!success) return;
+        if (!success || isPending) return;
         if (type === 'accept') router.refresh();
         else router.replace('/member');
-    }, [success, router, type]);
+    }, [isPending, success, router, type]);
 
     return (
         <form action={formAction}>

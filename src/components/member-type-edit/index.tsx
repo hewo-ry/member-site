@@ -23,9 +23,9 @@ const MemberTypeCard = ({ hideEdit, id, type }: Props) => {
     const openEdit = () => setEdit(true);
 
     useEffect(() => {
-        if (state !== MemberTypeChangeFormStateState.SUCCESS && !isPending) return;
+        if (state !== MemberTypeChangeFormStateState.SUCCESS || isPending) return;
         startTransition(() => setEdit(false));
-    }, [state, timestamp, isPending]);
+    }, [isPending, state, timestamp]);
 
     return (
         <div className='card flex justify-between'>

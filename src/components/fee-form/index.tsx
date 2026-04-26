@@ -23,9 +23,9 @@ const FeeForm = ({ memberId }: Props) => {
 
     const timestamp = 'timestamp' in state ? state.timestamp : null;
     useEffect(() => {
-        if (state.state !== FeeFormStateState.OPTIRE_SUCCESS) return;
+        if (state.state !== FeeFormStateState.OPTIRE_SUCCESS || isPending) return;
         router.refresh();
-    }, [router, state.state, timestamp]);
+    }, [isPending, router, state.state, timestamp]);
 
     return (
         <form action={formAction} className='card-soft grid gap-3 sm:gap-4'>
