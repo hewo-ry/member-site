@@ -5,3 +5,9 @@ export enum MemberType {
     SPONSORSHIP = 'SPONSORSHIP',
     STUDENT = 'STUDENT',
 }
+
+export enum MemberTypeChangeFormStateState {
+    INITIALIZED,
+    SUCCESS,
+    FAILED,
+}

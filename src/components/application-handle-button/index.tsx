@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useActionState, useEffect } from 'react';
 
-import { handleUnproseccedMember } from '@/lib/association';
+import { handleUnproseccedMember } from '@/lib/association/actions';
 import { Member } from '@/lib/association/types';
 
 interface Props {

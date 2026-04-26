@@ -5,6 +5,7 @@ import { Role, auth } from '@/auth';
 import ApplicationHandleButton from '@/components/application-handle-button';
 import BackButton from '@/components/back-button';
 import FeeTable from '@/components/fee-table';
+import MemberTypeCard from '@/components/member-type-edit';
 import StatusPage from '@/components/status-page';
 import { getAssociationMemberById } from '@/lib/association';
 import { MemberType } from '@/lib/association/contants';
@@ -54,10 +55,7 @@ const Page = async ({ params }: Props) => {
                             <ApplicationHandleButton memberId={member.id} type='decline' />
                         </div>
                     ) : (
-                        <div className='card'>
-                            <dt className='field-label'>Tyyppi</dt>
-                            <dd>{member.type}</dd>
-                        </div>
+                        <MemberTypeCard hideEdit={session.user.role !== Role.ADMIN} {...member} />
                     )}
 
                     <div className='card sm:col-span-2'>

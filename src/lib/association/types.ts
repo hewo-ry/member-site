@@ -1,4 +1,4 @@
-import { MemberType } from './contants';
+import { MemberType, MemberTypeChangeFormStateState } from './contants';
 
 export interface Association {
     readonly id: string;
@@ -38,4 +38,10 @@ export interface Fee {
     seasonStartTime: string;
     seasonEndTime: string;
     readonly created: string;
+}
+
+export interface MemberTypeChangeFormState {
+    state: MemberTypeChangeFormStateState;
+    timestamp: number;
+    type: Member['type'];
 }
