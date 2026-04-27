@@ -1,11 +1,19 @@
 import { MemberType, MemberTypeChangeFormStateState } from './contants';
 
-export interface Association {
+export interface SimpleAssociation {
     readonly id: string;
     name: string;
     businessId: string;
-    readonly members: SimpleMember[];
     owner: string;
+}
+
+export interface Association extends SimpleAssociation {
+    shortName: string | null;
+    description: string | null;
+    introduction: string | null;
+    applicationInstructions: string | null;
+    contacts: string | null;
+    readonly members: SimpleMember[];
 }
 
 interface Person {

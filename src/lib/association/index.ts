@@ -4,10 +4,10 @@ import optireApi, { handleErrorResponse } from '@/lib/optire';
 
 import { ApiResponse } from '../optire/types';
 import { getAssociationId } from '../utils';
-import { Association, Fee, Member } from './types';
+import { Association, Fee, Member, SimpleAssociation } from './types';
 
-export const getAssociations = async (): Promise<ApiResponse<Association[]>> =>
-    optireApi.get<Association[]>(`association`);
+export const getAssociations = async (): Promise<ApiResponse<SimpleAssociation[]>> =>
+    optireApi.get<SimpleAssociation[]>(`association`);
 
 export const getAssociationById = async (id?: string): Promise<ApiResponse<Association>> =>
     (id ? Promise.resolve(id) : getAssociationId())
