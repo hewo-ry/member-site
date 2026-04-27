@@ -20,26 +20,26 @@ const ApplicationForm = () => {
         <form action={formAction} className='grid w-full gap-4 sm:gap-5'>
             <div>
                 <label className='field-label' htmlFor='firstName'>
-                    Etunimi
+                    Virallinen etunimi
                 </label>
                 <input
                     className='input'
                     id='firstName'
                     name='firstName'
-                    placeholder='Etunimi'
+                    placeholder='Virallinen etunimi'
                     defaultValue={state.application.firstName}
                 />
                 {'errors' in state && state.errors?.firstName && <p className='error-text'>{state.errors.firstName}</p>}
             </div>
             <div>
                 <label className='field-label' htmlFor='lastName'>
-                    Sukunimi
+                    Virallinen sukunimi
                 </label>
                 <input
                     className='input'
                     id='lastName'
                     name='lastName'
-                    placeholder='Sukunimi'
+                    placeholder='Virallinen sukunimi'
                     defaultValue={state.application.lastName}
                 />
                 {'errors' in state && state.errors?.lastName && <p className='error-text'>{state.errors.lastName}</p>}
@@ -52,6 +52,7 @@ const ApplicationForm = () => {
                     className='input'
                     id='domicile'
                     name='domicile'
+                    autoComplete='address-level2'
                     placeholder='Kotipaikka (esim. Tampere tai Saksa)'
                     defaultValue={state.application.domicile}
                 />
