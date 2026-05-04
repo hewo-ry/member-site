@@ -34,7 +34,7 @@ const ApplicationHandleButton = ({ memberId, type }: Props) => {
             </button>
             {success === false && (
                 <p className='error-text'>
-                    {type ? 'Hyväksyminen' : 'Hylkääminen'} epäonnistui, yritä myöhemmin uudelleen.
+                    {type === 'accept' ? 'Hyväksyminen' : 'Hylkääminen'} epäonnistui, yritä myöhemmin uudelleen.
                 </p>
             )}
         </form>
