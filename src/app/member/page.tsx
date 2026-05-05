@@ -4,7 +4,9 @@ import { forbidden, redirect, unauthorized } from 'next/navigation';
 
 import { Role, auth } from '@/auth';
 import BackButton from '@/components/back-button';
+import MemberTable from '@/components/member-table';
 import { getAssociationById } from '@/lib/association';
+import { MemberType } from '@/lib/association/contants';
 
 // TODO: metadata
 
@@ -21,37 +23,33 @@ const Page = async () => {
     // TODO
     if (error) console.error(error);
 
+    const members = association?.members.filter(({ type }) => type !== MemberType.UNPROCESSED) ?? [];
+    const unprocessedMember = association?.members.filter(({ type }) => type === MemberType.UNPROCESSED) ?? [];
+
     return (
         <>
             <div className='action-row mb-6'>
                 <BackButton fallbackHref='/' />
             </div>
+
+            <section className='section'>
+                <h2 className='text-xl font-semibold sm:text-2xl'>Uudet jäsenhakemukset</h2>
+                <p className='mt-2 text-sm text-[var(--color-text-muted)]'>
+                    Avaa hakemuksen tiedot klikkaamalla nimeä niin voit sen jälkeen hyväksyä henkilön uudeksi jäseneksi.
+                </p>
+
+                {unprocessedMember.length > 0 ? (
+                    <MemberTable hideType members={unprocessedMember} />
+                ) : (
+                    <p className='mt-2 text-sm]'>Ei uusia jäsenhakemuksia käsiteltäväksi!</p>
+                )}
+            </section>
+
             <section className='section'>
                 <h2 className='text-xl font-semibold sm:text-2xl'>Jäsenet</h2>
                 <p className='mt-2 text-sm text-[var(--color-text-muted)]'>Avaa jäsenen tiedot klikkaamalla nimeä.</p>
 
-                <div className='table-shell mt-5'>
-                    <table className='table table-mobile-list'>
-                        <thead>
-                            <tr>
-                                <th>Nimi</th>
-                                <th>Tyyppi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {association?.members.map(({ id, person: { fullName }, type }) => (
-                                <tr key={id}>
-                                    <td data-label='Nimi'>
-                                        <Link className='table-link' href={`/member/${id}`}>
-                                            {fullName}
-                                        </Link>
-                                    </td>
-                                    <td data-label='Tyyppi'>{type}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                <MemberTable members={members} />
             </section>
         </>
     );

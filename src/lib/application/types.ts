@@ -4,7 +4,9 @@ import { ApplicationFormStateState } from './contants';
 export interface Application {
     firstName: string;
     lastName: string;
+    domicile: string;
     email: string;
+    allowMemberLetter: boolean;
 }
 
 interface InvalidApplicationFormState {

@@ -2,10 +2,13 @@ import { headers } from 'next/headers';
 import { forbidden, notFound, unauthorized } from 'next/navigation';
 
 import { Role, auth } from '@/auth';
+import ApplicationHandleButton from '@/components/application-handle-button';
 import BackButton from '@/components/back-button';
 import FeeTable from '@/components/fee-table';
+import MemberTypeCard from '@/components/member-type-edit';
 import StatusPage from '@/components/status-page';
 import { getAssociationMemberById } from '@/lib/association';
+import { MemberType } from '@/lib/association/contants';
 
 interface Props {
     params: Promise<{ id: string }>;
@@ -32,20 +35,37 @@ const Page = async ({ params }: Props) => {
             <div className='action-row'>
                 <BackButton fallbackHref='/member' />
             </div>
+
             <section className='section'>
                 <h2 className='text-xl font-semibold sm:text-2xl'>Perustiedot</h2>
-                <dl className='mt-4 grid gap-3 sm:grid-cols-2'>
+                <dl className='mt-4 grid gap-3 sm:grid-cols-3'>
                     <div className='card'>
                         <dt className='field-label'>Nimi</dt>
                         <dd>{member.person.fullName}</dd>
                     </div>
+
                     <div className='card'>
+                        <dt className='field-label'>Kotipaikka</dt>
+                        <dd>{member.person.domicile}</dd>
+                    </div>
+
+                    {session.user.role === Role.ADMIN && member.type === MemberType.UNPROCESSED ? (
+                        <div className='card flex flex-col gap-2'>
+                            <ApplicationHandleButton memberId={member.id} type='accept' />
+                            <ApplicationHandleButton memberId={member.id} type='decline' />
+                        </div>
+                    ) : (
+                        <MemberTypeCard hideEdit={session.user.role !== Role.ADMIN} {...member} />
+                    )}
+
+                    <div className='card sm:col-span-2'>
                         <dt className='field-label'>Sähköposti</dt>
                         <dd>{member.person.email}</dd>
                     </div>
-                    <div className='card sm:col-span-2'>
-                        <dt className='field-label'>Tyyppi</dt>
-                        <dd>{member.type}</dd>
+
+                    <div className='card'>
+                        <dt className='field-label'>Jäsenkirje</dt>
+                        <dd>{member.allowMemberLetter ? 'Kyllä' : 'Ei'}</dd>
                     </div>
                 </dl>
             </section>
