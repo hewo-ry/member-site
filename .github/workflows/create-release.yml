@@ -57,11 +57,11 @@ jobs:
       - name: Bump version
         id: bump-version
         run: |
-          VERSION=$(npm version ${{ github.event.inputs.bump_type }})
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-
           git config --global user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
           git config --global user.email '${{ steps.github-app.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
+
+          VERSION=$(npm version ${{ github.event.inputs.bump_type }})
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
           if ! git rev-parse $VERSION >/dev/null 2>&1; then
             git push origin $VERSION
