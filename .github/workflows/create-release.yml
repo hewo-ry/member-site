@@ -58,7 +58,6 @@ jobs:
       - name: Bump version
         id: bump-version
         run: |
-          # Update package.json without creating a local git commit or tag
           VERSION=$(npm version ${{ github.event.inputs.bump_type }} --no-git-tag-version)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
   
@@ -70,7 +69,6 @@ jobs:
           message: 'chore: bump version to ${{ steps.bump-version.outputs.version }}'
           files: |
             package.json
-            package-lock.json
   
       - name: Create Verified Tag
         uses: actions/github-script@v7
