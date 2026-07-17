@@ -60,18 +60,18 @@ jobs:
         run: |
           VERSION=$(npm version ${{ github.event.inputs.bump_type }} --no-git-tag-version)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-  
+
       - name: Verified Bot Commit
         id: bot-commit
-        uses: iarekylew00t/verified-bot-commit@v2
+        uses: iarekylew00t/verified-bot-commit@v2.3.3
         with:
           token: ${{ steps.app-token.outputs.token }}
           message: 'chore: bump version to ${{ steps.bump-version.outputs.version }}'
           files: |
             package.json
-  
+
       - name: Create Verified Tag
-        uses: actions/github-script@v9
+        uses: actions/github-script@v9.0.0
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           script: |
