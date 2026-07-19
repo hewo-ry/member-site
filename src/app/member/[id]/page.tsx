@@ -16,7 +16,8 @@ interface Props {
 
 const Page = async ({ params }: Props) => {
     const session = await auth.api.getSession({ headers: await headers() });
-    if (!session || session.user.role === Role.NONE) unauthorized();
+    if (!session) unauthorized();
+    if (session.user.role !== Role.ADMIN && session.user.role !== Role.MEMBER) forbidden();
 
     const id = await params.then(({ id }) => id);
 
