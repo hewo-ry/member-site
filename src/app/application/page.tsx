@@ -1,7 +1,12 @@
-// TODO: metadata
+import { Metadata } from 'next';
+
 import ApplicationForm from '@/components/application-form';
 import BackButton from '@/components/back-button';
 import { getAssociationById } from '@/lib/association';
+
+export const metadata: Metadata = {
+    title: 'Jäsenhakemus',
+};
 
 const Page = async () => {
     const { data: association } = await getAssociationById();

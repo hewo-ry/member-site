@@ -16,7 +16,7 @@ export const getAssociationById = async (id?: string): Promise<ApiResponse<Assoc
 
 export const createAssociationMember = async (
     id: string | undefined,
-    member: Omit<Member, 'fees' | 'id' | 'person'> & {
+    member: Omit<Member, 'fees' | 'id' | 'person' | 'user'> & {
         person: Omit<Member['person'], 'fullName' | 'officialFullName' | 'updated'>;
     },
 ): Promise<ApiResponse<Member>> =>
@@ -34,7 +34,7 @@ export const getAssociationMemberById = async (
 
 export const updateAssociationMember = async (
     id: string | undefined,
-    { id: memberId, ...member }: Omit<Member, 'fees' | 'person'>,
+    { id: memberId, ...member }: Omit<Member, 'fees' | 'person' | 'user'>,
 ): Promise<ApiResponse<Member>> =>
     (id ? Promise.resolve(id) : getAssociationId())
         .then((id) => optireApi.put<Member>(`association/${id}/member/${memberId}`, member))
