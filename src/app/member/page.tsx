@@ -1,5 +1,4 @@
 import { headers } from 'next/headers';
-import Link from 'next/link';
 import { forbidden, redirect, unauthorized } from 'next/navigation';
 
 import { Role, auth } from '@/auth';
