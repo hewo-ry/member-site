@@ -10,18 +10,18 @@ export interface Fee {
 interface InvalidFeeFormState {
     fee: Partial<Fee>;
     errors?: Partial<Record<keyof Fee, string>>;
-    state: FeeFormStateState.INVALID;
+    state: typeof FeeFormStateState.INVALID;
 }
 
 interface OptireFailedFeeFormState {
     fee: Partial<Fee>;
-    state: FeeFormStateState.OPTIRE_FAILED;
+    state: typeof FeeFormStateState.OPTIRE_FAILED;
     error: ProblemDetails;
 }
 
 interface OptireSuccessFeeFormState {
     fee: Partial<Fee>;
-    state: FeeFormStateState.OPTIRE_SUCCESS;
+    state: typeof FeeFormStateState.OPTIRE_SUCCESS;
     timestamp: number;
 }
 

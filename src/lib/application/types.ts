@@ -12,20 +12,18 @@ export interface Application {
 interface InvalidApplicationFormState {
     application: Partial<Application>;
     errors?: Partial<Record<keyof Application, string>>;
-    state: ApplicationFormStateState.INVALID;
+    state: typeof ApplicationFormStateState.INVALID;
 }
 
 interface OptireFailedApplicationFormState {
     application: Partial<Application>;
-    state: ApplicationFormStateState.OPTIRE_FAILED;
+    state: typeof ApplicationFormStateState.OPTIRE_FAILED;
     error: ProblemDetails;
 }
 
 interface OptireSuccessApplicationFormState {
-    state: ApplicationFormStateState.OPTIRE_SUCCESS;
+    state: typeof ApplicationFormStateState.OPTIRE_SUCCESS;
 }
 
 export type ApplicationFormState =
-    | InvalidApplicationFormState
-    | OptireFailedApplicationFormState
-    | OptireSuccessApplicationFormState;
+    InvalidApplicationFormState | OptireFailedApplicationFormState | OptireSuccessApplicationFormState;
