@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 import { forbidden, redirect, unauthorized } from 'next/navigation';
@@ -8,7 +9,9 @@ import MemberTable from '@/components/member-table';
 import { getAssociationById } from '@/lib/association';
 import { MemberType } from '@/lib/association/contants';
 
-// TODO: metadata
+export const metadata: Metadata = {
+    title: 'Jäsensivut',
+};
 
 const Page = async () => {
     const session = await auth.api.getSession({ headers: await headers() });

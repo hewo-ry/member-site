@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { forbidden, notFound, unauthorized } from 'next/navigation';
 
@@ -9,27 +10,38 @@ import MemberTypeCard from '@/components/member-type-edit';
 import StatusPage from '@/components/status-page';
 import { getAssociationMemberById } from '@/lib/association';
 import { MemberType } from '@/lib/association/contants';
+import { Member } from '@/lib/association/types';
 
 interface Props {
     params: Promise<{ id: string }>;
 }
 
-const Page = async ({ params }: Props) => {
+const getMember = async (memberId: Member['id']): Promise<[Member, Role]> => {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session) unauthorized();
     if (session.user.role !== Role.ADMIN && session.user.role !== Role.MEMBER) forbidden();
 
-    const id = await params.then(({ id }) => id);
-
     // TODO: remove hardcoded id
-    if (session.user.role !== Role.ADMIN && id !== 'b0905552-77fa-442f-a197-2073b64c9d12') forbidden();
+    if (session.user.role !== Role.ADMIN && memberId !== 'b0905552-77fa-442f-a197-2073b64c9d12') forbidden();
 
-    const { data: member, error } = await getAssociationMemberById(undefined, id);
+    const { data: member, error } = await getAssociationMemberById(undefined, memberId);
 
     if (error?.status === 404) notFound();
+    if (error) throw new Error(`Failed to fetch member: ${error.detail}`);
 
-    // TODO
-    if (error) console.error(error);
+    return [member, session.user.role];
+};
+
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+    const [member] = await getMember(await params.then(({ id }) => id));
+
+    return {
+        title: member.person.fullName,
+    };
+};
+
+const Page = async ({ params }: Props) => {
+    const [member, role] = await getMember(await params.then(({ id }) => id));
 
     return member ? (
         <div className='space-y-6'>
@@ -50,13 +62,13 @@ const Page = async ({ params }: Props) => {
                         <dd>{member.person.domicile}</dd>
                     </div>
 
-                    {session.user.role === Role.ADMIN && member.type === MemberType.UNPROCESSED ? (
+                    {role === Role.ADMIN && member.type === MemberType.UNPROCESSED ? (
                         <div className='card flex flex-col gap-2'>
                             <ApplicationHandleButton memberId={member.id} type='accept' />
                             <ApplicationHandleButton memberId={member.id} type='decline' />
                         </div>
                     ) : (
-                        <MemberTypeCard hideEdit={session.user.role !== Role.ADMIN} {...member} />
+                        <MemberTypeCard hideEdit={role !== Role.ADMIN} {...member} />
                     )}
 
                     <div className='card sm:col-span-2'>
@@ -77,11 +89,7 @@ const Page = async ({ params }: Props) => {
                     Lisää tai poista jäsenmaksuja tarvittaessa.
                 </p>
                 <div className='mt-5'>
-                    <FeeTable
-                        hideFeeActions={session.user.role !== Role.ADMIN}
-                        memberId={member.id}
-                        fees={member.fees}
-                    />
+                    <FeeTable hideFeeActions={role !== Role.ADMIN} memberId={member.id} fees={member.fees} />
                 </div>
             </section>
         </div>

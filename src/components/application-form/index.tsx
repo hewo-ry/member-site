@@ -6,8 +6,6 @@ import { submitApplication } from '@/lib/application';
 import { ApplicationFormStateState } from '@/lib/application/contants';
 import { ApplicationFormState } from '@/lib/application/types';
 
-// TODO: metadata
-
 const ApplicationForm = () => {
     const [state, formAction, isPending] = useActionState<ApplicationFormState>(submitApplication, {
         application: {},
