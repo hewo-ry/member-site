@@ -22,8 +22,7 @@ const Page = async () => {
 
     const { data: association, error } = await getAssociationById();
 
-    // TODO
-    if (error) console.error(error);
+    if (error) throw new Error(`Failed to fetch association: ${error.detail}`);
 
     const members = association?.members.filter(({ type }) => type !== MemberType.UNPROCESSED) ?? [];
     const unprocessedMember = association?.members.filter(({ type }) => type === MemberType.UNPROCESSED) ?? [];
