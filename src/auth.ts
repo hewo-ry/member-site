@@ -4,11 +4,13 @@ import { genericOAuth, keycloak } from 'better-auth/plugins';
 
 const CLIENT_ID = process.env.KEYCLOAK_CLIENT_ID ?? 'pmty-member-site';
 
-export enum Role {
-    ADMIN = 'ADMIN',
-    MEMBER = 'MEMBER',
-    NONE = 'NONE',
-}
+export const Role = {
+    ADMIN: 'ADMIN',
+    MEMBER: 'MEMBER',
+    NONE: 'NONE',
+} as const;
+
+export type Role = (typeof Role)[keyof typeof Role];
 
 export const auth = betterAuth({
     plugins: [

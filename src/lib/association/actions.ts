@@ -17,7 +17,9 @@ export const handleMemberTypeChange = async (_: unknown, formData?: FormData): P
     const memberId = (formData?.get('memberId') as string | undefined)?.trim();
     const type = formData?.get('type') as MemberType | undefined;
 
-    if (!memberId || !type || [MemberType.BASIC, MemberType.SPONSORSHIP, MemberType.STUDENT].indexOf(type) === -1)
+    const allowed: MemberType[] = [MemberType.BASIC, MemberType.SPONSORSHIP, MemberType.STUDENT];
+
+    if (!memberId || !type || !allowed.includes(type))
         return { state: MemberTypeChangeFormStateState.FAILED, timestamp: Date.now(), type: MemberType.BASIC };
 
     return updateAssociationMemberType(undefined, memberId, type)
