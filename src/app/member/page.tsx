@@ -13,7 +13,7 @@ import { MemberType } from '@/lib/association/contants';
 const Page = async () => {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session) unauthorized();
-    else if (session.user.role === Role.NONE) forbidden();
+    else if (session.user.role !== Role.ADMIN && session.user.role !== Role.MEMBER) forbidden();
 
     // TODO: remove hardcoded id
     if (session.user.role !== Role.ADMIN) redirect('/member/b0905552-77fa-442f-a197-2073b64c9d12');
