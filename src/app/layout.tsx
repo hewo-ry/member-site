@@ -1,5 +1,5 @@
 // TODO: metadata
-// TODO: front
+// TODO: font
 import { Suspense } from 'react';
 
 import NavigationTracker from '@/components/navigation-tracker';
