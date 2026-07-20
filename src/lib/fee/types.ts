@@ -1,5 +1,5 @@
 import { ProblemDetails } from '../optire/types';
-import { FeeFormStateState } from './contants';
+import { DeleteFeeFormStateState, FeeFormStateState } from './contants';
 
 export interface Fee {
     memberId: string;
@@ -26,3 +26,21 @@ interface OptireSuccessFeeFormState {
 }
 
 export type FeeFormState = InvalidFeeFormState | OptireFailedFeeFormState | OptireSuccessFeeFormState;
+
+interface InvalidDeleteFeeFormState {
+    errors?: Partial<Record<keyof Fee, string>>;
+    state: DeleteFeeFormStateState.INVALID;
+}
+
+interface OptireFailedDeleteFeeFormState {
+    state: DeleteFeeFormStateState.OPTIRE_FAILED;
+    error: ProblemDetails;
+}
+
+interface OptireSuccessDeleteFeeFormState {
+    state: DeleteFeeFormStateState.OPTIRE_SUCCESS;
+    timestamp: number;
+}
+
+export type DeleteFeeFormState =
+    InvalidDeleteFeeFormState | OptireFailedDeleteFeeFormState | OptireSuccessDeleteFeeFormState;

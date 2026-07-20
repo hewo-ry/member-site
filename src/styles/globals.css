@@ -197,6 +197,10 @@
         border-bottom: 0;
     }
 
+    .actions {
+        width: 160px;
+    }
+
     .table-link {
         color: var(--color-primary);
         font-weight: 600;

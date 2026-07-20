@@ -44,7 +44,7 @@ const FeeTable = ({ hideFeeActions, fees, memberId }: Props) => (
                                 />
                             </td>
                             {!hideFeeActions && (
-                                <td data-label='Toiminnot'>
+                                <td className='actions' data-label='Toiminnot'>
                                     <DeleteButton memberId={memberId} feeId={id} />
                                 </td>
                             )}

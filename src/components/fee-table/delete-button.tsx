@@ -1,25 +1,43 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useActionState, useEffect } from 'react';
 
 import { deleteAssociationMemberFee } from '@/lib/association';
 import { Fee, Member } from '@/lib/association/types';
+import { deleteFee } from '@/lib/fee';
+import { DeleteFeeFormStateState } from '@/lib/fee/contants';
+import { DeleteFeeFormState } from '@/lib/fee/types';
 
 interface Props {
-    memberId: Member['id'];
     feeId: Fee['id'];
+    memberId: Member['id'];
 }
 
-// TODO: loading
-// TODO: error handling
-const DeleteButton = ({ memberId, feeId }: Props) => {
+const DeleteButton = ({ feeId, memberId }: Props) => {
     const router = useRouter();
-    const handleDelete = () => deleteAssociationMemberFee(undefined, memberId, feeId).then(() => router.refresh());
+
+    const [state, formAction, isPending] = useActionState<DeleteFeeFormState>(deleteFee, {
+        state: DeleteFeeFormStateState.INVALID,
+    });
+
+    const timestamp = 'timestamp' in state ? state.timestamp : null;
+    useEffect(() => {
+        if (state.state !== DeleteFeeFormStateState.OPTIRE_SUCCESS || isPending) return;
+        router.refresh();
+    }, [isPending, router, state.state, timestamp]);
 
     return (
-        <button className='btn btn-danger' onClick={handleDelete} type='button'>
-            Poista
-        </button>
+        <form action={formAction}>
+            <input type='hidden' name='feeId' value={feeId} />
+            <input type='hidden' name='memberId' value={memberId} />
+            <button className='btn btn-danger' disabled={isPending}>
+                {isPending ? 'Poistetaan...' : 'Poista'}
+            </button>
+            {state.state === DeleteFeeFormStateState.OPTIRE_FAILED && (
+                <p className='error-text'>Maksun poistaminen epäonnistui, yritä myöhemmin uudelleen.</p>
+            )}
+        </form>
     );
 };
 

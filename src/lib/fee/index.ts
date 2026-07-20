@@ -5,9 +5,9 @@ import { forbidden, unauthorized } from 'next/navigation';
 
 import { Role, auth } from '@/auth';
 
-import { createAssociationMemberFee } from '../association';
-import { FeeFormStateState } from './contants';
-import { Fee, FeeFormState } from './types';
+import { createAssociationMemberFee, deleteAssociationMemberFee } from '../association';
+import { DeleteFeeFormStateState, FeeFormStateState } from './contants';
+import { DeleteFeeFormState, Fee, FeeFormState } from './types';
 
 export const submitFee = async (_: FeeFormState, formData?: FormData): Promise<FeeFormState> => {
     const session = await auth.api.getSession({ headers: await headers() });
@@ -55,6 +55,33 @@ export const submitFee = async (_: FeeFormState, formData?: FormData): Promise<F
               state: FeeFormStateState.OPTIRE_SUCCESS,
               timestamp: Date.now(),
           };
+};
+
+export const deleteFee = async (_: unknown, formData?: FormData): Promise<DeleteFeeFormState> => {
+    const session = await auth.api.getSession({ headers: await headers() });
+    if (!session || session.user.role === Role.NONE) unauthorized();
+    if (session.user.role !== Role.ADMIN) forbidden();
+
+    const feeId = parseNumber(formData?.get('feeId') as string | undefined);
+    const memberId = (formData?.get('memberId') as string | undefined)?.trim();
+
+    const errors: Partial<Record<'feeId' | 'memberId', string>> = {};
+
+    if (!feeId) errors['feeId'] = 'feeId is required';
+    else if (isNaN(feeId)) errors['feeId'] = 'feeId must be number';
+    if (!memberId) errors['memberId'] = 'memberId is required';
+
+    if (Object.keys(errors).length > 0 || !feeId || isNaN(feeId) || !memberId)
+        return {
+            errors,
+            state: DeleteFeeFormStateState.INVALID,
+        };
+
+    const { error } = await deleteAssociationMemberFee(undefined, memberId, feeId);
+
+    return error
+        ? { state: DeleteFeeFormStateState.OPTIRE_FAILED, error }
+        : { state: DeleteFeeFormStateState.OPTIRE_SUCCESS, timestamp: Date.now() };
 };
 
 const parseNumber = (number: string | undefined): number | undefined => {
