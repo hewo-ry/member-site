@@ -32,6 +32,9 @@ export interface SimpleMember {
     readonly id: string;
     type: MemberType;
     person: Pick<Person, 'updated' | 'fullName' | 'officialFullName'>;
+    user: {
+        sub: string;
+    } | null;
 }
 
 export interface Member extends SimpleMember {

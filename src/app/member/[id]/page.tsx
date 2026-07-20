@@ -17,17 +17,21 @@ interface Props {
 }
 
 const getMember = async (memberId: Member['id']): Promise<[Member, Role]> => {
-    const session = await auth.api.getSession({ headers: await headers() });
+    const awaitedHeaders = await headers();
+    const session = await auth.api.getSession({ headers: awaitedHeaders });
     if (!session) unauthorized();
     if (session.user.role !== Role.ADMIN && session.user.role !== Role.MEMBER) forbidden();
-
-    // TODO: remove hardcoded id
-    if (session.user.role !== Role.ADMIN && memberId !== 'b0905552-77fa-442f-a197-2073b64c9d12') forbidden();
 
     const { data: member, error } = await getAssociationMemberById(undefined, memberId);
 
     if (error?.status === 404) notFound();
     if (error) throw new Error(`Failed to fetch member: ${error.detail}`);
+
+    if (session.user.role !== Role.ADMIN) {
+        const accountInfo = await auth.api.accountInfo({ headers: awaitedHeaders });
+
+        if (!member.user?.sub || member.user.sub !== accountInfo?.user.id) notFound(); // Do not expose existing ids
+    }
 
     return [member, session.user.role];
 };

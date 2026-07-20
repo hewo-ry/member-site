@@ -13,12 +13,10 @@ export const metadata: Metadata = {
 };
 
 const Page = async () => {
-    const session = await auth.api.getSession({ headers: await headers() });
+    const awaitedHeaders = await headers();
+    const session = await auth.api.getSession({ headers: awaitedHeaders });
     if (!session) unauthorized();
     else if (session.user.role !== Role.ADMIN && session.user.role !== Role.MEMBER) forbidden();
-
-    // TODO: remove hardcoded id
-    if (session.user.role !== Role.ADMIN) redirect('/member/b0905552-77fa-442f-a197-2073b64c9d12');
 
     const { data: association, error } = await getAssociationById();
 
@@ -26,6 +24,15 @@ const Page = async () => {
 
     const members = association?.members.filter(({ type }) => type !== MemberType.UNPROCESSED) ?? [];
     const unprocessedMember = association?.members.filter(({ type }) => type === MemberType.UNPROCESSED) ?? [];
+
+    if (session.user.role !== Role.ADMIN) {
+        const accountInfo = await auth.api.accountInfo({ headers: awaitedHeaders });
+
+        const loggedInMember = members.find(({ user }) => user?.sub && user?.sub === accountInfo?.user.id);
+        if (!loggedInMember) forbidden();
+
+        redirect(`/member/${loggedInMember.id}`);
+    }
 
     return (
         <>
