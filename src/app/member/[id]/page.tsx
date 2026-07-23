@@ -84,6 +84,13 @@ const Page = async ({ params }: Props) => {
                         <dt className='field-label'>Jäsenkirje</dt>
                         <dd>{member.allowMemberLetter ? 'Kyllä' : 'Ei'}</dd>
                     </div>
+
+                    {member.applicationMessage && (
+                        <div className='card sm:col-span-3'>
+                            <dt className='field-label'>Hakemuksen perustelut</dt>
+                            <dd className='whitespace-pre-line'>{member.applicationMessage}</dd>
+                        </div>
+                    )}
                 </dl>
             </section>
 
