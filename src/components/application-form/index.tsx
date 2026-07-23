@@ -5,8 +5,14 @@ import { useActionState } from 'react';
 import { submitApplication } from '@/lib/application';
 import { ApplicationFormStateState } from '@/lib/application/contants';
 import { ApplicationFormState } from '@/lib/application/types';
+import { Association } from '@/lib/association/types';
 
-const ApplicationForm = () => {
+interface Props {
+    memberLetterDescription?: Association['memberLetterDescription'];
+    applicationMessageDescription?: Association['applicationMessageDescription'];
+}
+
+const ApplicationForm = ({ memberLetterDescription, applicationMessageDescription }: Props) => {
     const [state, formAction, isPending] = useActionState<ApplicationFormState>(submitApplication, {
         application: {},
         state: ApplicationFormStateState.INVALID,
@@ -18,13 +24,13 @@ const ApplicationForm = () => {
         <form action={formAction} className='grid w-full gap-4 sm:gap-5'>
             <div>
                 <label className='field-label' htmlFor='firstName'>
-                    Virallinen etunimi
+                    Kaikki etunimet
                 </label>
                 <input
                     className='input'
                     id='firstName'
                     name='firstName'
-                    placeholder='Virallinen etunimi'
+                    placeholder='Kaikki etunimet'
                     defaultValue={state.application.firstName}
                 />
                 {'errors' in state && state.errors?.firstName && <p className='error-text'>{state.errors.firstName}</p>}
@@ -71,17 +77,46 @@ const ApplicationForm = () => {
                 />
                 {'errors' in state && state.errors?.email && <p className='error-text'>{state.errors.email}</p>}
             </div>
-            <div className='flex items-center'>
-                <input
-                    className='w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft'
-                    id='allowMemberLetter'
-                    name='allowMemberLetter'
-                    type='checkbox'
-                    defaultChecked={state.application.allowMemberLetter}
-                />
-                <label className='select-none ms-2 text-sm font-medium text-heading' htmlFor='allowMemberLetter'>
-                    Minulle saa lähettää jäsenkirjeen
-                </label>
+            {applicationMessageDescription && (
+                <div>
+                    <label className='field-label' htmlFor='applicationMessage'>
+                        Hakemuksen perustelut
+                    </label>
+                    <p className='help-text mb-2 mt-0' id='applicationMessageHelp'>
+                        {applicationMessageDescription}
+                    </p>
+                    <textarea
+                        className='input'
+                        id='applicationMessage'
+                        name='applicationMessage'
+                        rows={4}
+                        aria-describedby='applicationMessageHelp'
+                        defaultValue={state.application.applicationMessage}
+                    />
+                    {'errors' in state && state.errors?.applicationMessage && (
+                        <p className='error-text'>{state.errors.applicationMessage}</p>
+                    )}
+                </div>
+            )}
+            <div>
+                <div className='flex items-center'>
+                    <input
+                        className='w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft'
+                        id='allowMemberLetter'
+                        name='allowMemberLetter'
+                        type='checkbox'
+                        aria-describedby={memberLetterDescription ? 'allowMemberLetterHelp' : undefined}
+                        defaultChecked={state.application.allowMemberLetter}
+                    />
+                    <label className='select-none ms-2 text-sm font-medium text-heading' htmlFor='allowMemberLetter'>
+                        Minulle saa lähettää jäsenkirjeen
+                    </label>
+                </div>
+                {memberLetterDescription && (
+                    <p className='help-text' id='allowMemberLetterHelp'>
+                        {memberLetterDescription}
+                    </p>
+                )}
                 {'errors' in state && state.errors?.allowMemberLetter && (
                     <p className='error-text'>{state.errors.allowMemberLetter}</p>
                 )}

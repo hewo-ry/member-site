@@ -13,6 +13,8 @@ export interface Association extends SimpleAssociation {
     introduction: string | null;
     applicationInstructions: string | null;
     contacts: string | null;
+    memberLetterDescription: string | null;
+    applicationMessageDescription: string | null;
     readonly members: SimpleMember[];
 }
 
@@ -39,6 +41,7 @@ export interface SimpleMember {
 
 export interface Member extends SimpleMember {
     allowMemberLetter: boolean;
+    applicationMessage?: string | null;
     fees: Fee[];
     person: Person;
 }

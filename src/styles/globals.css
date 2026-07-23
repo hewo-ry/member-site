@@ -156,6 +156,12 @@
         color: var(--color-danger);
     }
 
+    .help-text {
+        margin-top: 0.35rem;
+        font-size: 0.875rem;
+        color: var(--color-text-muted);
+    }
+
     .success-text {
         margin-top: 0.35rem;
         font-size: 0.875rem;
@@ -262,7 +268,8 @@
 
         .field-label,
         .error-text,
-        .success-text {
+        .success-text,
+        .help-text {
             font-size: 0.9375rem;
         }
 

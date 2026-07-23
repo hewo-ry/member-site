@@ -7,6 +7,7 @@ export interface Application {
     domicile: string;
     email: string;
     allowMemberLetter: boolean;
+    applicationMessage?: string;
 }
 
 interface InvalidApplicationFormState {

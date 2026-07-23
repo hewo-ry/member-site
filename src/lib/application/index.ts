@@ -14,11 +14,12 @@ export const submitApplication = async (
     const domicile = (formData?.get('domicile') as string | undefined)?.trim();
     const email = (formData?.get('email') as string | undefined)?.trim();
     const allowMemberLetter = formData?.get('allowMemberLetter') === 'on';
+    const applicationMessage = (formData?.get('applicationMessage') as string | undefined)?.trim();
 
     const errors: Partial<Record<keyof Application, string>> = {};
 
-    if (!firstName || firstName.length == 0) errors['firstName'] = 'Etunimi puuttuu!';
-    else if (firstName.length > 32) errors['firstName'] = 'Etunimi saa olla enintään 32 merkkiä pitkä';
+    if (!firstName || firstName.length == 0) errors['firstName'] = 'Etunimet puuttuvat!';
+    else if (firstName.length > 32) errors['firstName'] = 'Etunimet saavat olla kaikkiaan enintään 32 merkkiä';
 
     if (!lastName || lastName.length == 0) errors['lastName'] = 'Sukunimi puuttuu!';
     else if ((lastName.length ?? 0) > 64) errors['lastName'] = 'Sukunimi saa olla enintään 64 merkkiä pitkä';
@@ -31,12 +32,16 @@ export const submitApplication = async (
     else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email))
         errors['email'] = 'Sähköposti ei ole kelvollinen';
 
+    if (applicationMessage && applicationMessage.length > 1000)
+        errors['applicationMessage'] = 'Perustelut saavat olla enintään 1000 merkkiä pitkät';
+
     const application: Partial<Application> = {
         firstName,
         lastName,
         domicile,
         email,
         allowMemberLetter,
+        applicationMessage,
     };
 
     if (Object.keys(errors).length > 0 || !firstName || !lastName || !domicile || !email)
@@ -48,6 +53,7 @@ export const submitApplication = async (
 
     const { error } = await createAssociationMember(undefined, {
         allowMemberLetter,
+        applicationMessage: applicationMessage || undefined,
         person: { firstName, lastName, domicile, email },
         type: MemberType.UNPROCESSED,
     });

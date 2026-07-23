@@ -26,7 +26,10 @@ const Page = async () => {
             </section>
 
             <section className='section'>
-                <ApplicationForm />
+                <ApplicationForm
+                    memberLetterDescription={association?.memberLetterDescription}
+                    applicationMessageDescription={association?.applicationMessageDescription}
+                />
             </section>
         </div>
     );
