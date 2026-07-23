@@ -8,8 +8,8 @@ import { ApplicationFormState } from '@/lib/application/types';
 import { Association } from '@/lib/association/types';
 
 interface Props {
-    memberLetterDescription?: Association['memberLetterDescription'];
-    applicationMessageDescription?: Association['applicationMessageDescription'];
+    memberLetterDescription: Association['memberLetterDescription'];
+    applicationMessageDescription: Association['applicationMessageDescription'];
 }
 
 const ApplicationForm = ({ memberLetterDescription, applicationMessageDescription }: Props) => {
