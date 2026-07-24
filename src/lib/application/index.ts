@@ -1,5 +1,7 @@
 'use server';
 
+import logger from '@/utils/logger';
+
 import { createAssociationMember } from '../association';
 import { MemberType } from '../association/contants';
 import { ApplicationFormStateState } from './contants';
@@ -9,6 +11,8 @@ export const submitApplication = async (
     _: ApplicationFormState,
     formData?: FormData,
 ): Promise<ApplicationFormState> => {
+    logger.trace({ action: 'submitApplication' }, 'server side action call');
+
     const firstName = (formData?.get('firstName') as string | undefined)?.trim();
     const lastName = (formData?.get('lastName') as string | undefined)?.trim();
     const domicile = (formData?.get('domicile') as string | undefined)?.trim();
@@ -51,14 +55,17 @@ export const submitApplication = async (
             state: ApplicationFormStateState.INVALID,
         };
 
-    const { error } = await createAssociationMember(undefined, {
+    const body = {
         allowMemberLetter,
-        applicationMessage: applicationMessage || undefined,
+        applicationMessage,
         person: { firstName, lastName, domicile, email },
         type: MemberType.UNPROCESSED,
-    });
+    };
 
-    return error
+    logger.debug({ action: 'submitApplication', body: { ...body, person: '***' } }, 'creating new association member');
+    const { error } = await createAssociationMember(undefined, body);
+
+    const response: ApplicationFormState = error
         ? {
               application,
               error,
@@ -67,4 +74,7 @@ export const submitApplication = async (
         : {
               state: ApplicationFormStateState.OPTIRE_SUCCESS,
           };
+
+    logger.trace({ action: 'submitApplication', response }, 'return response');
+    return response;
 };

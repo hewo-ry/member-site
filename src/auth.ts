@@ -3,6 +3,8 @@ import { betterAuth } from 'better-auth';
 import { nextCookies } from 'better-auth/next-js';
 import { genericOAuth, keycloak } from 'better-auth/plugins';
 
+import logger from './utils/logger';
+
 const CLIENT_ID = process.env.KEYCLOAK_CLIENT_ID ?? 'pmty-member-site';
 
 export enum Role {
@@ -26,11 +28,14 @@ export const auth = betterAuth({
                     overrideUserInfo: true,
                     mapProfileToUser: async (profile) => {
                         const role = parseRole(profile);
-                        if (process.env.AUTH_DEBUG === '1') {
-                            console.log('[auth-debug] profile keys:', Object.keys(profile));
-                            console.log('[auth-debug] resource_access:', JSON.stringify(profile.resource_access));
-                            console.log('[auth-debug] parsed role:', role);
-                        }
+                        logger.trace(
+                            {
+                                profile_keys: Object.keys(profile),
+                                resource_access: profile.resource_access,
+                                role,
+                            },
+                            'mapProfileToUser',
+                        );
                         if (role !== null) await pendingRole.set(role);
                         return {};
                     },
@@ -83,9 +88,7 @@ const applyPendingRole = async () => {
     const role = await pendingRole.get();
     if (role !== null) {
         await pendingRole.set(null);
-        if (process.env.AUTH_DEBUG === '1') {
-            console.log('[auth-debug] applyPendingRole: injecting role', role);
-        }
+        logger.trace({ role }, 'applyPendingRole: injecting role');
         return { data: { role } };
     }
 };
