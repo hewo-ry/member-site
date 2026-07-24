@@ -1,5 +1,7 @@
 'use server';
 
+import logger from '@/utils/logger';
+
 import { getAssociations } from './association';
 
 let token: string | null = null;
@@ -41,8 +43,12 @@ export const getOptireAccessToken = async (): Promise<string> => {
 let associationId = process.env.OPTIRE_ASSOCIATION_ID;
 
 export const getAssociationId = async (): Promise<string> => {
-    if (associationId) return Promise.resolve(associationId);
+    if (associationId) {
+        logger.trace({ associationId }, 'return existing association id');
+        return Promise.resolve(associationId);
+    }
 
+    logger.trace('fetching new association id');
     return getAssociations()
         .then(({ data: associations }) => associations?.at(0)?.id)
         .then((id) => {

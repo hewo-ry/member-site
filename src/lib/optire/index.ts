@@ -1,55 +1,69 @@
+import logger from '@/utils/logger';
+
 import { getOptireAccessToken } from '../utils';
 import { ApiResponse, ProblemDetails } from './types';
 
 const handleResponse = async <T>(res: Response): Promise<{ data: T; error: undefined }> => {
     const contentType = res.headers.get('Content-Type');
     if (!res.ok) {
-        return Promise.reject(
-            contentType?.startsWith('application/problem+json')
-                ? await res.json()
-                : {
-                      type: 'https://hewo.dev/member-site/ResponseNotOk',
-                      title: res.statusText,
-                      status: res.status,
-                      detail: await res.text(),
-                      instance: res.url,
-                  },
-        );
+        const response = contentType?.startsWith('application/problem+json')
+            ? await res.json()
+            : {
+                  type: 'https://hewo.dev/member-site/ResponseNotOk',
+                  title: res.statusText,
+                  status: res.status,
+                  detail: await res.text(),
+                  instance: res.url,
+              };
+
+        logger.warn({ response }, 'api call failed');
+        return Promise.reject(response);
     }
-    return contentType?.startsWith('application/json')
+
+    const response = contentType?.startsWith('application/json')
         ? { data: await res.json(), error: undefined }
         : res.headers.get('Content-Length') === '0'
           ? ({ data: null, error: undefined } as { data: T; error: undefined })
-          : Promise.reject({
-                type: 'https://hewo.dev/member-site/InvalidResponse',
-                title: `Invalid response: Content-Type: ${contentType}`,
-                status: res.status,
-                detail: await res.text(),
-                instance: res.url,
-            });
+          : null;
+
+    logger.trace({ response }, 'api call success');
+    return (
+        response ??
+        Promise.reject({
+            type: 'https://hewo.dev/member-site/InvalidResponse',
+            title: `Invalid response: Content-Type: ${contentType}`,
+            status: res.status,
+            detail: await res.text(),
+            instance: res.url,
+        })
+    );
 };
 
 export const handleErrorResponse = (
     err: Error | ProblemDetails,
     path: string,
-): { data: undefined; error: ProblemDetails } => ({
-    data: undefined,
-    error:
-        'type' in err
-            ? err
-            : {
-                  type: 'https://hewo.dev/member-site/RequestFailed',
-                  title: 'Request to API failed',
-                  status: 0,
-                  detail: err.message,
-                  instance: path,
-                  properties: err.cause ? JSON.parse(JSON.stringify(err.cause)) : null,
-              },
-});
+): { data: undefined; error: ProblemDetails } => {
+    logger.warn({ err }, 'api call error');
+    return {
+        data: undefined,
+        error:
+            'type' in err
+                ? err
+                : {
+                      type: 'https://hewo.dev/member-site/RequestFailed',
+                      title: 'Request to API failed',
+                      status: 0,
+                      detail: err.message,
+                      instance: path,
+                      properties: err.cause ? JSON.parse(JSON.stringify(err.cause)) : null,
+                  },
+    };
+};
 
 const api = (url?: string) => ({
-    get: async <T>(path: string): Promise<ApiResponse<T>> =>
-        getOptireAccessToken()
+    get: async <T>(path: string): Promise<ApiResponse<T>> => {
+        logger.trace({ url: `${url}/${path}`, method: 'GET' }, 'api call');
+        return getOptireAccessToken()
             .then((accessToken) => {
                 if (!url) throw new Error('Missing required env variable: OPTIRE_API_URL');
                 return fetch(`${url}/${path}`, {
@@ -60,10 +74,12 @@ const api = (url?: string) => ({
                 });
             })
             .then(handleResponse<T>)
-            .catch((err) => handleErrorResponse(err, path)),
+            .catch((err) => handleErrorResponse(err, path));
+    },
 
-    post: async <T>(path: string, body: unknown): Promise<ApiResponse<T>> =>
-        getOptireAccessToken()
+    post: async <T>(path: string, body: unknown): Promise<ApiResponse<T>> => {
+        logger.trace({ url: `${url}/${path}`, method: 'POST', body }, 'api call');
+        return getOptireAccessToken()
             .then((accessToken) => {
                 if (!url) throw new Error('Missing required env variable: OPTIRE_API_URL');
                 return fetch(`${url}/${path}`, {
@@ -77,10 +93,12 @@ const api = (url?: string) => ({
                 });
             })
             .then(handleResponse<T>)
-            .catch((err) => handleErrorResponse(err, path)),
+            .catch((err) => handleErrorResponse(err, path));
+    },
 
-    put: async <T>(path: string, body: unknown): Promise<ApiResponse<T>> =>
-        getOptireAccessToken()
+    put: async <T>(path: string, body: unknown): Promise<ApiResponse<T>> => {
+        logger.trace({ url: `${url}/${path}`, method: 'PUT', body }, 'api call');
+        return getOptireAccessToken()
             .then((accessToken) => {
                 if (!url) throw new Error('Missing required env variable: OPTIRE_API_URL');
                 return fetch(`${url}/${path}`, {
@@ -94,10 +112,12 @@ const api = (url?: string) => ({
                 });
             })
             .then(handleResponse<T>)
-            .catch((err) => handleErrorResponse(err, path)),
+            .catch((err) => handleErrorResponse(err, path));
+    },
 
-    delete: async <T>(path: string): Promise<ApiResponse<T>> =>
-        getOptireAccessToken()
+    delete: async <T>(path: string): Promise<ApiResponse<T>> => {
+        logger.trace({ url: `${url}/${path}`, method: 'DELETE' }, 'api call');
+        return getOptireAccessToken()
             .then((accessToken) => {
                 if (!url) throw new Error('Missing required env variable: OPTIRE_API_URL');
                 return fetch(`${url}/${path}`, {
@@ -109,7 +129,8 @@ const api = (url?: string) => ({
                 });
             })
             .then(handleResponse<T>)
-            .catch((err) => handleErrorResponse(err, path)),
+            .catch((err) => handleErrorResponse(err, path));
+    },
 });
 
 export default api(process.env.OPTIRE_API_URL);

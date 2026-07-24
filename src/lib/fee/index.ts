@@ -4,12 +4,15 @@ import { headers } from 'next/headers';
 import { forbidden, unauthorized } from 'next/navigation';
 
 import { Role, auth } from '@/auth';
+import logger from '@/utils/logger';
 
 import { createAssociationMemberFee, deleteAssociationMemberFee } from '../association';
 import { DeleteFeeFormStateState, FeeFormStateState } from './contants';
 import { DeleteFeeFormState, Fee, FeeFormState } from './types';
 
 export const submitFee = async (_: FeeFormState, formData?: FormData): Promise<FeeFormState> => {
+    logger.trace({ action: 'submitFee' }, 'server side action call');
+
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session || session.user.role === Role.NONE) unauthorized();
     if (session.user.role !== Role.ADMIN) forbidden();
@@ -38,13 +41,16 @@ export const submitFee = async (_: FeeFormState, formData?: FormData): Promise<F
             state: FeeFormStateState.INVALID,
         };
 
-    const { error } = await createAssociationMemberFee(undefined, memberId, {
+    const body = {
         amount,
         seasonStartTime: `${year}-01-01T00:00:00+02:00`,
         seasonEndTime: `${year}-12-31T00:00:00+02:00`,
-    });
+    };
 
-    return error
+    logger.debug({ action: 'submitFee', memberId, body }, 'creating new association member fee');
+    const { error } = await createAssociationMemberFee(undefined, memberId, body);
+
+    const response: FeeFormState = error
         ? {
               fee,
               error,
@@ -55,9 +61,14 @@ export const submitFee = async (_: FeeFormState, formData?: FormData): Promise<F
               state: FeeFormStateState.OPTIRE_SUCCESS,
               timestamp: Date.now(),
           };
+
+    logger.trace({ action: 'submitFee', response }, 'return response');
+    return response;
 };
 
 export const deleteFee = async (_: unknown, formData?: FormData): Promise<DeleteFeeFormState> => {
+    logger.trace({ action: 'deleteFee' }, 'server side action call');
+
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session || session.user.role === Role.NONE) unauthorized();
     if (session.user.role !== Role.ADMIN) forbidden();
@@ -77,11 +88,15 @@ export const deleteFee = async (_: unknown, formData?: FormData): Promise<Delete
             state: DeleteFeeFormStateState.INVALID,
         };
 
+    logger.debug({ action: 'deleteFee', memberId, feeId }, 'deleting association member fee');
     const { error } = await deleteAssociationMemberFee(undefined, memberId, feeId);
 
-    return error
+    const response: DeleteFeeFormState = error
         ? { state: DeleteFeeFormStateState.OPTIRE_FAILED, error }
         : { state: DeleteFeeFormStateState.OPTIRE_SUCCESS, timestamp: Date.now() };
+
+    logger.trace({ action: 'deleteFee', response }, 'return response');
+    return response;
 };
 
 const parseNumber = (number: string | undefined): number | undefined => {
