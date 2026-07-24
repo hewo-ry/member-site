@@ -8,6 +8,8 @@ export const metadata: Metadata = {
     title: 'Jäsenhakemus',
 };
 
+export const dynamic = 'force-dynamic';
+
 const Page = async () => {
     const { data: association } = await getAssociationById();
 
