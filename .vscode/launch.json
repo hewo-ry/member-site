@@ -11,6 +11,11 @@
                 "dev",
             ],
             "envFile": "${workspaceFolder}/.env",
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/**",
+                "!**/node_modules/**",
+                "!**/.next/**",
+            ],
         },
     ],
 }
