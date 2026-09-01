@@ -4,7 +4,8 @@ import { DeleteFeeFormStateState, FeeFormStateState } from './contants';
 export interface Fee {
     memberId: string;
     amount: number;
-    year: number;
+    startTime: string;
+    endTime: string;
 }
 
 interface InvalidFeeFormState {

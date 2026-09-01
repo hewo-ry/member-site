@@ -8,11 +8,12 @@ import DeleteButton from './delete-button';
 
 interface Props {
     hideFeeActions: boolean;
-    memberId: Member['id'];
     fees: Fee[];
+    feeStartDate: string;
+    memberId: Member['id'];
 }
 
-const FeeTable = ({ hideFeeActions, fees, memberId }: Props) => (
+const FeeTable = ({ hideFeeActions, fees, feeStartDate, memberId }: Props) => (
     <>
         <div className='table-shell'>
             <table className='table table-mobile-cards'>
@@ -55,7 +56,7 @@ const FeeTable = ({ hideFeeActions, fees, memberId }: Props) => (
         </div>
         {!hideFeeActions && (
             <div className='mt-4'>
-                <FeeForm memberId={memberId} />
+                <FeeForm feeStartDate={feeStartDate} memberId={memberId} />
             </div>
         )}
     </>

@@ -19,22 +19,37 @@ export const submitFee = async (_: FeeFormState, formData?: FormData): Promise<F
 
     const memberId = formData?.get('memberId') as string | undefined;
     const amount = parseNumber(formData?.get('amount') as string | undefined);
-    const year = parseNumber(formData?.get('year') as string | undefined);
+    const startTime = formData?.get('startTime') as string | undefined;
+    const endTime = formData?.get('endTime') as string | undefined;
 
     const errors: Partial<Record<keyof Fee, string>> = {};
 
     const fee: Partial<Fee> = {
         memberId,
         amount,
-        year,
+        startTime,
+        endTime,
     };
 
     if (amount === undefined) errors['amount'] = 'Aseta määrä';
     else if (amount < 0 || amount > 9999999) errors['amount'] = 'Määrän tulee olla väliltä 0 - 9 999 999';
-    if (year === undefined) errors['year'] = 'Aseta vuosi';
-    else if (year < 2000 || year >= 2100) errors['year'] = 'Vuoden tulee olla väliltä 2000 - 2099';
 
-    if (Object.keys(errors).length > 0 || amount === undefined || year === undefined || !memberId)
+    if (startTime === undefined || startTime === '') errors['startTime'] = 'Aseta alkupäivä';
+    else if (!isValidDate(startTime)) errors['startTime'] = 'Päivämäärä ei ole kelvollinen';
+
+    if (endTime === undefined || endTime === '') errors['endTime'] = 'Aseta loppupäivä';
+    else if (!isValidDate(endTime)) errors['startTime'] = 'Päivämäärä ei ole kelvollinen';
+
+    if (startTime && endTime && endTime < startTime)
+        errors['endTime'] = 'Loppupäivän tulee olla myöhemmin kuin aloituspäivän';
+
+    if (
+        Object.keys(errors).length > 0 ||
+        amount === undefined ||
+        startTime === undefined ||
+        endTime === undefined ||
+        !memberId
+    )
         return {
             fee,
             errors,
@@ -43,8 +58,8 @@ export const submitFee = async (_: FeeFormState, formData?: FormData): Promise<F
 
     const body = {
         amount,
-        seasonStartTime: `${year}-01-01T00:00:00+02:00`,
-        seasonEndTime: `${year}-12-31T00:00:00+02:00`,
+        seasonStartTime: `${startTime}T00:00:00+02:00`,
+        seasonEndTime: `${endTime}T00:00:00+02:00`,
     };
 
     logger.debug({ action: 'submitFee', memberId, body }, 'creating new association member fee');
@@ -103,4 +118,8 @@ const parseNumber = (number: string | undefined): number | undefined => {
     if (number === undefined) return undefined;
     const parsedNumber = parseInt(number);
     return !Number.isNaN(parsedNumber) ? parsedNumber : undefined;
+};
+
+const isValidDate = (date: string) => {
+    return !isNaN(Date.parse(date));
 };
