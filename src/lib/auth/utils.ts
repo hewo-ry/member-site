@@ -13,7 +13,10 @@ export const getLogoutUrl = async (path: string): Promise<string> => {
             .then((res) => res.json())
             .then(({ end_session_endpoint }) => end_session_endpoint),
         auth.api
-            .getAccessToken({ body: { providerId: 'keycloak' }, headers: await headers() })
+            .getAccessToken({
+                body: { useAccountCookie: true },
+                headers: await headers(),
+            })
             .then(({ idToken }) => idToken),
     ]);
 

@@ -4,8 +4,8 @@ import { signIn } from '@/auth-client';
 
 const SignInButton = () => {
     const handleClick = () =>
-        signIn.oauth2({
-            providerId: 'keycloak',
+        signIn.social({
+            provider: 'keycloak',
             callbackURL: '/member',
         });
 

@@ -23,13 +23,26 @@ export const proxy = async (request: NextRequest) => {
             { status: 401 },
         );
 
-    const response = await auth.api.signInWithOAuth2({
+    const response = await auth.api.signInSocial({
         body: {
-            providerId: 'keycloak',
+            provider: 'keycloak',
             callbackURL: request.nextUrl.pathname,
         },
     });
-    return NextResponse.redirect(response.url);
+
+    if (response.url) return NextResponse.redirect(response.url);
+
+    return NextResponse.json(
+        {
+            type: 'https://hewo.dev/member-site/InternalServerError',
+            title: 'Internal Server Error',
+            status: 500,
+            detail: 'Sign in url generating failed',
+            instance: request.nextUrl.pathname,
+            properties: null,
+        } satisfies ProblemDetails,
+        { status: 500 },
+    );
 };
 
 export const config = {
