@@ -1,7 +1,11 @@
 {
-    "editor.formatOnSave": true,
-    "editor.tabSize": 4,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "always",
+    },
     "editor.detectIndentation": false,
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
     "eslint.options": {
         "flags": [
             "unstable_native_nodejs_ts_config"
@@ -13,7 +17,9 @@
         "yarn.lock": true,
         ".next": true,
     },
+    "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
+    "yaml.format.singleQuote": true,
     "[github-actions-workflow]": {
         "editor.defaultFormatter": "redhat.vscode-yaml",
         "editor.tabSize": 2,
