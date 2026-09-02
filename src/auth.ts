@@ -1,7 +1,7 @@
 import { defineRequestState } from '@better-auth/core/context';
 import { betterAuth } from 'better-auth';
 import { nextCookies } from 'better-auth/next-js';
-import { genericOAuth, keycloak } from 'better-auth/plugins';
+import { GenericOAuthUserInfo, genericOAuth, keycloak } from 'better-auth/plugins';
 
 import logger from './utils/logger';
 
@@ -66,7 +66,7 @@ export const auth = betterAuth({
     },
 });
 
-interface ProfileWithRoles {
+interface ProfileWithRoles extends GenericOAuthUserInfo {
     resource_access?: {
         [CLIENT_ID]?: {
             roles?: Role[];

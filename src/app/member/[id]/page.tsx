@@ -28,9 +28,14 @@ const getMember = async (memberId: Member['id']): Promise<[Member, Role]> => {
     if (error) throw new Error(`Failed to fetch member: ${error.detail}`);
 
     if (session.user.role !== Role.ADMIN) {
-        const accountInfo = await auth.api.accountInfo({ headers: awaitedHeaders });
+        const accountInfo = await auth.api.accountInfo({
+            headers: awaitedHeaders,
+            query: {
+                useAccountCookie: true,
+            },
+        });
 
-        if (!member.user?.sub || member.user.sub !== accountInfo?.user.id) notFound(); // Do not expose existing ids
+        if (!member.user?.sub || member.user.sub !== accountInfo.account.accountId) notFound(); // Do not expose existing ids
     }
 
     return [member, session.user.role];

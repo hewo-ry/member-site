@@ -26,9 +26,14 @@ const Page = async () => {
     const unprocessedMember = association?.members.filter(({ type }) => type === MemberType.UNPROCESSED) ?? [];
 
     if (session.user.role !== Role.ADMIN) {
-        const accountInfo = await auth.api.accountInfo({ headers: awaitedHeaders });
+        const accountInfo = await auth.api.accountInfo({
+            headers: awaitedHeaders,
+            query: {
+                useAccountCookie: true,
+            },
+        });
 
-        const loggedInMember = members.find(({ user }) => user?.sub && user?.sub === accountInfo?.user.id);
+        const loggedInMember = members.find(({ user }) => user?.sub && user?.sub === accountInfo.account.accountId);
         if (!loggedInMember) forbidden();
 
         redirect(`/member/${loggedInMember.id}`);
