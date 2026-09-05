@@ -52,6 +52,8 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
 const Page = async ({ params }: Props) => {
     const [member, role] = await getMember(await params.then(({ id }) => id));
 
+    const feeStartDate = process.env.FEE_START_DATE ?? '01-01';
+
     return member ? (
         <div className='space-y-6'>
             <div className='action-row'>
@@ -105,7 +107,12 @@ const Page = async ({ params }: Props) => {
                     Lisää tai poista jäsenmaksuja tarvittaessa.
                 </p>
                 <div className='mt-5'>
-                    <FeeTable hideFeeActions={role !== Role.ADMIN} memberId={member.id} fees={member.fees} />
+                    <FeeTable
+                        hideFeeActions={role !== Role.ADMIN}
+                        fees={member.fees}
+                        feeStartDate={feeStartDate}
+                        memberId={member.id}
+                    />
                 </div>
             </section>
         </div>
