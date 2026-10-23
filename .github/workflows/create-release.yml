@@ -63,7 +63,7 @@ jobs:
 
       - name: Verified Bot Commit
         id: bot-commit
-        uses: iarekylew00t/verified-bot-commit@v2.3.5
+        uses: iarekylew00t/verified-bot-commit@v2.3.6
         with:
           token: ${{ steps.app-token.outputs.token }}
           message: 'chore: bump version to ${{ steps.bump-version.outputs.version }}'
