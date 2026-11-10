@@ -63,6 +63,15 @@ const Page = async () => {
                 <p className='mt-2 text-sm text-[var(--color-text-muted)]'>Avaa jäsenen tiedot klikkaamalla nimeä.</p>
 
                 <MemberTable members={members} />
+
+                <div className='action-row mt-6'>
+                    <a className='btn btn-secondary' href='/member/emails' target='_blank'>
+                        Kaikkien jäsenten sähköpostit
+                    </a>
+                    <a className='btn btn-secondary' href='/member/emails?memberLetter' target='_blank'>
+                        Jäsenkirjeen tilanneiden sähköpostit
+                    </a>
+                </div>
             </section>
         </>
     );
