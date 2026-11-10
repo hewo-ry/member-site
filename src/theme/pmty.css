@@ -1,34 +1,88 @@
+@font-face {
+    font-family: 'Schibsted Grotesk';
+    src: url('./fonts/SchibstedGroteskVF-latin.woff2') format('woff2');
+    font-weight: 400 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
+    src: url('./fonts/SourceSans3VF-Upright.woff2') format('woff2');
+    font-weight: 200 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
+    src: url('./fonts/SourceSans3VF-Italic.woff2') format('woff2');
+    font-weight: 200 900;
+    font-style: italic;
+    font-display: swap;
+}
+
 :root {
-    --font-sans: 'Fraunces', 'Bitter', 'Georgia', serif;
+    --font-sans: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+    --font-heading: 'Schibsted Grotesk', 'Helvetica Neue', Arial, sans-serif;
     color-scheme: light;
 
-    --color-bg: #f0f7ff;
+    --color-bg: #ffffff;
     --color-surface: #ffffff;
-    --color-surface-soft: #e1f0ff;
-    --color-border: #b8d8f8;
+    --color-surface-soft: #eaf3f6;
+    --color-border: #c9d8de;
 
-    --color-text: #0d1d2e;
-    --color-text-muted: #3e5a78;
+    --color-text: #15242c;
+    --color-text-muted: #44555e;
 
-    --color-primary: #03a1ff;
-    --color-primary-hover: #0089e0;
-    --color-primary-contrast: #ffffff;
+    --color-primary: #00bcdb;
+    --color-primary-hover: #00aac6;
+    --color-primary-contrast: #15242c;
 
-    --color-secondary: #3f6b9f;
-    --color-secondary-hover: #2d5083;
+    --color-secondary: #0d2c34;
+    --color-secondary-hover: #123a44;
     --color-secondary-contrast: #ffffff;
 
-    --color-danger: #d43f53;
-    --color-danger-hover: #b32e44;
+    --color-danger: #c0392b;
+    --color-danger-hover: #a02f23;
     --color-danger-contrast: #ffffff;
 
-    --color-success: #1a9f52;
-    --color-warning: #9a6700;
+    --color-success: #1a7f45;
+    --color-warning: #8a5a00;
 
-    --shadow-sm: 0 2px 8px rgb(13 29 46 / 0.07);
-    --shadow-md: 0 8px 24px rgb(13 29 46 / 0.13);
+    --color-link: #006d7e;
+    --color-link-hover: #00515f;
 
-    --radius-sm: 0.5rem;
-    --radius-md: 0.75rem;
-    --radius-lg: 1rem;
+    --shadow-sm: none;
+    --shadow-md: none;
+
+    --radius-sm: 2px;
+    --radius-md: 2px;
+    --radius-lg: 2px;
+}
+
+body {
+    background: var(--color-bg);
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-heading);
+    letter-spacing: min(0px, calc(0.07rem - 0.05em));
+    text-wrap: balance;
+}
+
+.table-link {
+    color: var(--color-link);
+}
+
+.table-link:hover {
+    color: var(--color-link-hover);
+}
+
+.btn:focus-visible,
+.input:focus-visible {
+    outline: 3px solid var(--color-link);
 }
