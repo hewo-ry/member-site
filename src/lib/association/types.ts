@@ -24,7 +24,7 @@ interface Person {
     preferredFirstName?: string;
     preferredLastName?: string;
     domicile: string;
-    email: string;
+    email: string | null;
     readonly updated: string;
     readonly fullName: string;
     readonly officialFullName: string;
