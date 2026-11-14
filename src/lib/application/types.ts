@@ -27,6 +27,4 @@ interface OptireSuccessApplicationFormState {
 }
 
 export type ApplicationFormState =
-    | InvalidApplicationFormState
-    | OptireFailedApplicationFormState
-    | OptireSuccessApplicationFormState;
+    InvalidApplicationFormState | OptireFailedApplicationFormState | OptireSuccessApplicationFormState;
