@@ -7,7 +7,7 @@ on:
       bump_type:
         description: Select type
         required: true
-        default: "patch"
+        default: patch
         type: choice
         options:
           - patch
