@@ -66,3 +66,20 @@ export const handleUnproseccedMember = async (
         .then(() => ({ success: true }))
         .catch(() => ({ success: false }));
 };
+
+export const handleMemberRemove = async (_: unknown, formData?: FormData): Promise<{ success: boolean | null }> => {
+    logger.trace({ action: 'handleMemberRemove' }, 'server side action call');
+
+    const session = await auth.api.getSession({ headers: await headers() });
+    if (!session || session.user.role === Role.NONE) unauthorized();
+    if (session.user.role !== Role.ADMIN) forbidden();
+
+    const memberId = (formData?.get('memberId') as string | undefined)?.trim();
+    if (!memberId) return { success: false };
+
+    logger.debug({ action: 'handleMemberRemove', memberId }, 'deleting association member');
+    return deleteAssociationMember(undefined, memberId)
+        .then(({ error }) => (error ? Promise.reject(error) : Promise.resolve()))
+        .then(() => ({ success: true }))
+        .catch(() => ({ success: false }));
+};
