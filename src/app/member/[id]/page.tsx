@@ -6,6 +6,7 @@ import { Role, auth } from '@/auth';
 import ApplicationHandleButton from '@/components/application-handle-button';
 import BackButton from '@/components/back-button';
 import FeeTable from '@/components/fee-table';
+import MemberRemoveButton from '@/components/member-remove-button';
 import MemberTypeCard from '@/components/member-type-edit';
 import StatusPage from '@/components/status-page';
 import { getAssociationMemberById } from '@/lib/association';
@@ -58,6 +59,9 @@ const Page = async ({ params }: Props) => {
         <div className='space-y-6'>
             <div className='action-row'>
                 <BackButton fallbackHref='/member' />
+                {role === Role.ADMIN && member.type !== MemberType.UNPROCESSED && (
+                    <MemberRemoveButton memberId={member.id} fullName={member.person.fullName} />
+                )}
             </div>
 
             <section className='section'>
